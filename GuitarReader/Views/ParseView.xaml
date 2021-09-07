@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GuitarReader.Views"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="Transparent">
@@ -12,8 +13,57 @@
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Style="{DynamicResource MaterialDesignSubtitle1TextBlock}"
+        <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
                    Grid.Row="0"
                    Text="분석"/>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height=".50*"></RowDefinition>
+                <RowDefinition Height=".5*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.RowSpan="3" Background="DimGray" CornerRadius="10"></Border>
+            <lvc:CartesianChart Grid.Row="2" Hoverable="False" Margin="15" DisableAnimations="True">
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Foreground="White"
+                              FontSize="15"
+                              MinValue="1"
+                              MaxValue="6">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator Step="1"
+                                           Stroke="Black"
+                                           StrokeDashArray="1"/>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis MinValue="0"
+                              MaxValue="10"
+                              Labels="0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator Step="1"/>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+
+                <lvc:CartesianChart.Series>
+                    <lvc:LineSeries Values="0,0,0,0,5" ScalesYAt="0" Fill="Transparent" Stroke="Transparent" StrokeThickness="0"/>
+                </lvc:CartesianChart.Series>
+
+                <lvc:CartesianChart.DataTooltip>
+                    <lvc:DefaultTooltip ShowSeries="False" ShowTitle="False" Background="Transparent" Foreground="Transparent"/>
+                </lvc:CartesianChart.DataTooltip>
+            </lvc:CartesianChart>
+
+            <StackPanel Grid.Row="3" VerticalAlignment="Center" Margin="25, 0">
+                <TextBlock Opacity=".7" FontSize="13">기타를 연주하면<LineBreak />코드와 프렛의 위치가 표시됩니다.</TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Foreground="#303030" FontSize="40" Text="E4" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
