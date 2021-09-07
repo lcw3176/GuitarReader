@@ -10,21 +10,50 @@
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="9*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        
-        <TextBlock Style="{DynamicResource MaterialDesignSubtitle1TextBlock}"
-                   Grid.Row="0"
-                   Text="최근 작업 목록"/>
 
-        <ListView Grid.Row="1"
-                  Style="{DynamicResource MaterialDesignListView}"
-                  BorderThickness="0">
-            <ListViewItem>
-                <StackPanel>
-                    <TextBlock Text="알로하"/>
-                </StackPanel>
-            </ListViewItem>
-        </ListView>
+        <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                   Grid.Row="0"
+                   Text="홈"/>
+
+        <materialDesign:Card Grid.Row="1"
+                             Background="{DynamicResource MaterialDesignCardBackground}">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="/Resources/Images/guitar.jpg"
+                       Grid.Column="0"
+                       Stretch="UniformToFill"/>
+
+                <TextBlock Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                           Grid.Column="1"
+                           Text="TAB Converter"
+                           VerticalAlignment="Top"
+                           Margin="30 20"/>
+
+                <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}"
+                           Grid.Column="1"
+                           Text="ATmega 2560, 사운드 센서, FFT를 통해 
+                           기타의 진동 수를 기록, 타브악보로 변환하는 프로그램입니다. 간단한 악보 편집과 저장, 파일화를 지원합니다."
+                           TextWrapping="Wrap"
+                           VerticalAlignment="Center"
+                           Margin="30 0"/>
+
+                <TextBlock Style="{DynamicResource MaterialDesignCaptionTextBlock}"
+                           Grid.Column="1"
+                           Text="인덕대학교 스마트IT제어응용프로젝트"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Bottom"
+                           Margin="30 10"/>
+
+            </Grid>
+
+        </materialDesign:Card>
     </Grid>
 </UserControl>
