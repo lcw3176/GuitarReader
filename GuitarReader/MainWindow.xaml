@@ -42,15 +42,18 @@
 
            
             <TextBlock Grid.Row="0" Style="{DynamicResource MaterialDesignHeadline4TextBlock}" Text="Guitar Reader" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
-            <Grid Grid.Row="1" Background="#FF0069C0" Width="5" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-            
-            <ListView Grid.Row="1" Margin="10, 0" Foreground="LightGray" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectedIndex="{Binding ViewIndex}">
+           
+            <ListView Grid.Row="1" 
+                      Margin="10, 0" 
+                      Foreground="LightGray" 
+                      FontFamily="Champagne &amp; Limousines" 
+                      SelectedIndex="{Binding ViewIndex}">
+
                 <ListViewItem Height="60" Padding="0">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="홈" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
-
                 </ListViewItem>
                 <ListViewItem Height="60" Padding="0">
                     <StackPanel Orientation="Horizontal">
@@ -82,6 +85,7 @@
                         <TextBlock Text="내보내기" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
+
             </ListView>
         </Grid>
 
