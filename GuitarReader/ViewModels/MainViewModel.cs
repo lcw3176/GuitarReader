@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Windows.Controls;
 
 namespace GuitarReader.ViewModels
 {
     class MainViewModel : BaseViewModel
     {
+
         private BaseViewModel selectedViewModel;
         public BaseViewModel SelectedViewModel
         {
@@ -28,16 +28,21 @@ namespace GuitarReader.ViewModels
                 switch (ViewIndex)
                 {
                     case 0:
-                        SelectedViewModel = new HomeViewModel();
+                        SelectedViewModel = new HomeViewModel();                        
                         break;
                     case 1:
                         SelectedViewModel = new ParseViewModel();
                         break;
+                    case 2:
+                        SelectedViewModel = new RecordViewModel();
+                        break;
                     default:
                         break;
                 }
+
             }
         }
+
 
         public MainViewModel()
         {
