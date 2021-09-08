@@ -22,6 +22,10 @@
             <DataTemplate DataType="{x:Type viewModels:ParseViewModel}">
                 <views:ParseView/>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:RecordViewModel}">
+                <views:RecordView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
