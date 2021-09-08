@@ -17,7 +17,13 @@ namespace GuitarReader
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (e.ChangedButton == MouseButton.Right)
+            {
+                return;
+            }
+
             DragMove();
+
         }
 
 
