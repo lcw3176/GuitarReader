@@ -22,7 +22,9 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                    Margin="10, 0">
+                    Margin="10, 0"
+                    Command="{Binding RecordCommand}"
+                    CommandParameter="{Binding ElementName=sheet}">
                 <materialDesign:PackIcon Kind="Record"/>
             </Button>
 
@@ -31,6 +33,86 @@
                 <materialDesign:PackIcon Kind="Pause"/>
             </Button>
         </StackPanel>
+
+        <Border Grid.Row="2" Grid.RowSpan="3" Background="DimGray" CornerRadius="10"></Border>
+
+
+        
+        <Grid Grid.Row="2">
+            <Grid.Resources>
+                <Storyboard x:Key="TestStoryboard">
+                    <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" 
+                         To="0"/>
+
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                         From="0"
+                         To="1" />
+                </Storyboard>
+
+            </Grid.Resources>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Separator Height="4"
+                       Width="auto"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       Grid.Row="1"/>
+
+            <Separator Height="4"
+                       Width="auto"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       Grid.Row="2"/>
+
+            <Separator Height="4"
+                       Width="auto"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       Grid.Row="3"/>
+
+            <Separator Height="4"
+                       Width="auto"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       Grid.Row="4"/>
+
+            <Separator Height="4"
+                       Width="auto"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       Grid.Row="5"/>
+
+            <Separator Height="4"
+                       Width="auto"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       Grid.Row="6"/>
+
+        </Grid>
+
+        <Grid Grid.Row="2"
+              Name="sheet">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+        </Grid>
 
     </Grid>
 </UserControl>
