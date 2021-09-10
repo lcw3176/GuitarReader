@@ -1,6 +1,5 @@
-﻿using GuitarReader.Views;
-using System;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,19 +11,23 @@ namespace GuitarReader.Services
     class RecordService
     {
         private Grid sheet;
+        private int count = 0;
         DispatcherTimer testTimer = new DispatcherTimer();
 
         public RecordService()
         {
-
             testTimer.Interval = TimeSpan.FromSeconds(1);
             testTimer.Tick += Timer_Tick;
-            
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            AddTabToSheet(2.ToString());
+            AddTabToSheet(count++.ToString());
+            
+            if(count >= 6)
+            {
+                count = 0;
+            }
         }
 
         public void StartRecord(object gridSheet)
@@ -36,9 +39,9 @@ namespace GuitarReader.Services
 
         public void StopRecord()
         {
-
-            
+            testTimer.Stop();
         }
+
 
         private void AddTabToSheet(string tab)
         {
@@ -54,15 +57,14 @@ namespace GuitarReader.Services
             };
 
             sheet.Children.Add(tabBlock);
-            Grid.SetRow(tabBlock, 1);
-            remainingTabs += 1;
+            Grid.SetRow(tabBlock, count);
 
             TranslateTransform trans = new TranslateTransform();
             tabBlock.RenderTransform = trans;
-            DoubleAnimation anim = new DoubleAnimation(650, 0, TimeSpan.FromSeconds(10));
+            DoubleAnimation anim = new DoubleAnimation(650, 0, TimeSpan.FromSeconds(5));
             anim.Completed += (sender, e) => { sheet.Children.RemoveAt(0); };
-            trans.BeginAnimation(TranslateTransform.XProperty, anim, HandoffBehavior.SnapshotAndReplace);
-            
+            trans.BeginAnimation(TranslateTransform.XProperty, anim);
+ 
         }
 
 
