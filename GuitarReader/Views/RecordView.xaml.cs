@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace GuitarReader.Views
 {
@@ -7,9 +9,17 @@ namespace GuitarReader.Views
     /// </summary>
     public partial class RecordView : UserControl
     {
+        private Brush brushes = Brushes.Red;
         public RecordView()
         {
             InitializeComponent();
+        }
+
+        private void recordButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Brush temp = recordButton.Background;
+            recordButton.Background = brushes;
+            brushes = temp;
         }
     }
 }
