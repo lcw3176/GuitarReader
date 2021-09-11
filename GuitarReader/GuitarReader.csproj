@@ -83,8 +83,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="Models\Sheet.cs" />
+    <Compile Include="Models\Note.cs" />
     <Compile Include="Services\DBService.cs" />
     <Compile Include="Services\RecordService.cs" />
+    <Compile Include="Services\SheetService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -151,9 +154,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Resources\Images\guitar.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
