@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GuitarReader.Views"
-             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="Transparent">
@@ -20,45 +19,336 @@
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height=".50*"></RowDefinition>
                 <RowDefinition Height=".5*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Border Grid.Row="0" Grid.RowSpan="3" Background="DimGray" CornerRadius="10"></Border>
-            <lvc:CartesianChart Grid.Row="2" Hoverable="False" Margin="15" DisableAnimations="True">
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Foreground="White"
-                              FontSize="15"
-                              MinValue="1"
-                              MaxValue="6">
-                        <lvc:Axis.Separator>
-                            <lvc:Separator Step="1"
-                                           Stroke="Black"
-                                           StrokeDashArray="1"/>
-                        </lvc:Axis.Separator>
-                    </lvc:Axis>
-                </lvc:CartesianChart.AxisY>
+            <Border Grid.Row="0" Grid.RowSpan="2" Background="DimGray" Margin="-10 -20" CornerRadius="10"></Border>
 
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis MinValue="0"
-                              MaxValue="10"
-                              Labels="0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10">
-                        <lvc:Axis.Separator>
-                            <lvc:Separator Step="1"/>
-                        </lvc:Axis.Separator>
-                    </lvc:Axis>
-                </lvc:CartesianChart.AxisX>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-                <lvc:CartesianChart.Series>
-                    <lvc:LineSeries Values="0,0,0,0,5" ScalesYAt="0" Fill="Transparent" Stroke="Transparent" StrokeThickness="0"/>
-                </lvc:CartesianChart.Series>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Separator Height="4"
+                           Width="auto"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Center"
+                           Grid.Row="0"
+                           Margin="30 0"
+                           Grid.ColumnSpan="10"/>
 
-                <lvc:CartesianChart.DataTooltip>
-                    <lvc:DefaultTooltip ShowSeries="False" ShowTitle="False" Background="Transparent" Foreground="Transparent"/>
-                </lvc:CartesianChart.DataTooltip>
-            </lvc:CartesianChart>
+                <TextBlock Text="1"
+                       Grid.Row="0"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       Foreground="LightGray"/>
 
-            <StackPanel Grid.Row="3" VerticalAlignment="Center" Margin="25, 0">
+                <Rectangle Height="auto"
+                           Width="1"
+                           Fill="Black"
+                           VerticalAlignment="Stretch"
+                           HorizontalAlignment="Center"
+                           Grid.Column="0"
+                           Grid.RowSpan="6"
+                           Margin="0, 20"/>
+
+                <TextBlock Text="0"
+                           Grid.RowSpan="6"
+                           Grid.Column="0"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="0 -10"
+                           FontSize="20"
+                           Foreground="DarkGray"/>
+                
+
+                <Separator Height="4"
+                       Width="auto"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       Grid.Row="1"
+                       Margin="30 0"
+                       Grid.ColumnSpan="10"/>
+
+                <TextBlock Text="2"
+                           Grid.Row="1"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           Foreground="LightGray"/>
+
+                <Rectangle Height="auto"
+                           Width="1"
+                           Fill="Black"
+                           VerticalAlignment="Stretch"
+                           HorizontalAlignment="Center"
+                           Grid.Column="1"
+                           Grid.RowSpan="6"
+                           Margin="0, 20"/>
+
+                <TextBlock Text="1"
+                           Grid.RowSpan="6"
+                           Grid.Column="1"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="0 -10"
+                           FontSize="20"
+                           Foreground="DarkGray"/>
+
+                <Separator Height="4"
+                       Width="auto"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       Grid.Row="2"
+                       Margin="30 0"
+                       Grid.ColumnSpan="10"/>
+
+                <TextBlock Text="3"
+                           Grid.Row="2"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           Foreground="LightGray"/>
+
+                <Rectangle Height="auto"
+                           Width="1"
+                           Fill="Black"
+                           VerticalAlignment="Stretch"
+                           HorizontalAlignment="Center"
+                           Grid.Column="2"
+                           Grid.RowSpan="6"
+                           Margin="0, 20"/>
+
+                <TextBlock Text="2"
+                           Grid.RowSpan="6"
+                           Grid.Column="2"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="0 -10"
+                           FontSize="20"
+                           Foreground="DarkGray"/>
+                
+
+                <Separator Height="4"
+                       Width="auto"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       Grid.Row="3"
+                       Margin="30 0"
+                       Grid.ColumnSpan="10"/>
+
+                <TextBlock Text="4"
+                           Grid.Row="3"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           Foreground="LightGray"/>
+
+                <Rectangle Height="auto"
+                           Width="1"
+                           Fill="Black"
+                           VerticalAlignment="Stretch"
+                           HorizontalAlignment="Center"
+                           Grid.Column="3"
+                           Grid.RowSpan="6"
+                           Margin="0, 20"/>
+
+                <TextBlock Text="3"
+                           Grid.RowSpan="6"
+                           Grid.Column="3"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="0 -10"
+                           FontSize="20"
+                           Foreground="DarkGray"/>
+                
+
+                <Separator Height="4"
+                       Width="auto"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       Grid.Row="4"
+                       Margin="30 0"
+                       Grid.ColumnSpan="10"/>
+
+                <TextBlock Text="5"
+                           Grid.Row="4"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           Foreground="LightGray"/>
+
+                <Rectangle Height="auto"
+                           Width="1"
+                           Fill="Black"
+                           VerticalAlignment="Stretch"
+                           HorizontalAlignment="Center"
+                           Grid.Column="4"
+                           Grid.RowSpan="6"
+                           Margin="0, 20"/>
+
+                <TextBlock Text="4"
+                           Grid.RowSpan="6"
+                           Grid.Column="4"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="0 -10"
+                           FontSize="20"
+                           Foreground="DarkGray"/>
+
+                <Separator Height="4"
+                       Width="auto"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       Grid.Row="5"
+                       Margin="30 0"
+                       Grid.ColumnSpan="10"/>
+
+                <TextBlock Text="6"
+                           Grid.Row="5"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           Foreground="LightGray"/>
+
+                <Rectangle Height="auto"
+                           Width="1"
+                           Fill="Black"
+                           VerticalAlignment="Stretch"
+                           HorizontalAlignment="Center"
+                           Grid.Column="5"
+                           Grid.RowSpan="6"
+                           Margin="0, 20"/>
+
+                <TextBlock Text="5"
+                           Grid.RowSpan="6"
+                           Grid.Column="5"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="0 -10"
+                           FontSize="20"
+                           Foreground="DarkGray"/>
+
+                <Rectangle Height="auto"
+                           Width="1"
+                           Fill="Black"
+                           VerticalAlignment="Stretch"
+                           HorizontalAlignment="Center"
+                           Grid.Column="6"
+                           Grid.RowSpan="6"
+                           Margin="0, 20"/>
+
+                <TextBlock Text="6"
+                           Grid.RowSpan="6"
+                           Grid.Column="6"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="0 -10"
+                           FontSize="20"
+                           Foreground="DarkGray"/>
+
+
+                <Rectangle Height="auto"
+                           Width="1"
+                           Fill="Black"
+                           VerticalAlignment="Stretch"
+                           HorizontalAlignment="Center"
+                           Grid.Column="7"
+                           Grid.RowSpan="6"
+                           Margin="0, 20"/>
+
+                <TextBlock Text="7"
+                           Grid.RowSpan="6"
+                           Grid.Column="7"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="0 -10"
+                           FontSize="20"
+                           Foreground="DarkGray"/>
+
+                <Rectangle Height="auto"
+                           Width="1"
+                           Fill="Black"
+                           VerticalAlignment="Stretch"
+                           HorizontalAlignment="Center"
+                           Grid.Column="8"
+                           Grid.RowSpan="6"
+                           Margin="0, 20"/>
+
+                <TextBlock Text="8"
+                           Grid.RowSpan="6"
+                           Grid.Column="8"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="0 -10"
+                           FontSize="20"
+                           Foreground="DarkGray"/>
+
+
+                <Rectangle Height="auto"
+                           Width="1"
+                           Fill="Black"
+                           VerticalAlignment="Stretch"
+                           HorizontalAlignment="Center"
+                           Grid.Column="9"
+                           Grid.RowSpan="6"
+                           Margin="0, 20"/>
+
+                <TextBlock Text="9"
+                           Grid.RowSpan="6"
+                           Grid.Column="9"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"
+                           Margin="0 -10"
+                           FontSize="20"
+                           Foreground="DarkGray"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <Ellipse Width="10"
+                         Height="10"
+                         Fill="White"
+                         Grid.Row="{Binding RowPosition}"
+                         Grid.Column="{Binding ColumnPosition}"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Center"/>
+            </Grid>
+
+            <StackPanel Grid.Row="2" VerticalAlignment="Center" Margin="25, 0">
                 <TextBlock Opacity=".7" FontSize="13">기타를 연주하면<LineBreak />코드와 프렛의 위치가 표시됩니다.</TextBlock>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Foreground="#303030" FontSize="40" Text="E4" />
