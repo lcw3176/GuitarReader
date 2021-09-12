@@ -1,69 +1,53 @@
-﻿using Microsoft.Data.Sqlite;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace GuitarReader.Services
 {
     class DBService<T>
     {
-        private static DBService<T> instance;
-        private SqliteConnection connection;
-        public bool isOpen = false;
+        private string location = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "sheet.db");
+        private string connStr;
 
-        public static DBService<T> GetInstace()
+        public DBService()
         {
-            if(instance == null)
-            {
-                instance = new DBService<T>();
-            }
-
-            return instance;
+            connStr = "Data Source=" + location; 
         }
 
-
-        public bool Open()
+        public bool IsExist()
         {
-            string connStr = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "sheet.db");
-            try
-            {
-                if (connection == null)
-                {
-                    connection = new SqliteConnection(connStr);
-                    connection.Open();
-                    isOpen = true;
-                }
-
-                return true;
-            }
-
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex);
-                return false;
-            }
-            
+            return new FileInfo(location).Exists;
         }
 
-        public void Close()
+        public void InitTables()
         {
-            connection.Close();
-            connection.Dispose();
-            isOpen = false;
+            using (SQLiteConnection conn = new SQLiteConnection(connStr))
+            {
+                string sheetDDL = "CREATE TABLE SHEET(" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "name CHAR(100) not null," +
+                    "created DATE not null," +
+                    "lastModified DATE not null);";
+                var cmd = new SQLiteCommand(sheetDDL, conn);
+                cmd.ExecuteNonQuery();
+            }
         }
 
-        public bool Write(object obj)
+        public bool Write<T>(T value)
         {
             return false;
         }
 
-        public List<T> Read(string table, params string[] elements)
+        public List<T> Read(string tableName, params string[] readElements)
         {
+            List<T> lst = new List<T>();
             StringBuilder query = new StringBuilder();
             query.Append("SELECT ");
 
-            foreach(string i in elements)
+            foreach (string i in readElements)
             {
                 query.Append(i);
                 query.Append(",");
@@ -72,17 +56,35 @@ namespace GuitarReader.Services
             query.Remove(query.Length - 1, 1);
 
             query.Append("FROM ");
-            query.Append(table);
+            query.Append(tableName);
 
-            SqliteCommand cmd = new SqliteCommand(query.ToString(), connection);
-            SqliteDataReader reader = cmd.ExecuteReader();
+            Type type = typeof(T);
+            PropertyInfo[] propertyInfos = type.GetProperties();
 
-            while (reader.Read())
+            using (SQLiteConnection conn = new SQLiteConnection(connStr))
             {
+                
+                SQLiteCommand cmd = new SQLiteCommand(query.ToString(), conn);
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                
 
+                while (reader.Read())
+                {
+                    object obj = Activator.CreateInstance(type);
+
+                    foreach (PropertyInfo i in propertyInfos)
+                    {
+                        PropertyInfo propInfo = type.GetProperty(i.Name);
+                        propInfo.SetValue(obj, reader[i.Name]);
+                    }
+
+                    lst.Add((T)obj);
+                }
+    
             }
 
-            return null;
+            return lst;
         }
+
     }
 }
