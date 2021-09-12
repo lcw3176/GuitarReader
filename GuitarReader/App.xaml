@@ -26,6 +26,10 @@
             <DataTemplate DataType="{x:Type viewModels:RecordViewModel}">
                 <views:RecordView/>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:SheetListViewModel}">
+                <views:SheetListView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
