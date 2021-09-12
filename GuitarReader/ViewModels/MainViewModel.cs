@@ -36,6 +36,9 @@ namespace GuitarReader.ViewModels
                     case 2:
                         SelectedViewModel = new RecordViewModel();
                         break;
+                    case 3:
+                        SelectedViewModel = new SheetListViewModel();
+                        break;
                     default:
                         break;
                 }
