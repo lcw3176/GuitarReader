@@ -9,12 +9,17 @@ namespace GuitarReader.Services
 {
     class DBService<T>
     {
-        private string location = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "sheet.db");
+        private string location = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "guitarReader.db");
         private string connStr;
 
         public DBService()
         {
-            connStr = "Data Source=" + location; 
+            connStr = "Data Source=" + location;
+
+            if (!IsExist())
+            {
+                InitTables();
+            }
         }
 
         public bool IsExist()
@@ -26,12 +31,26 @@ namespace GuitarReader.Services
         {
             using (SQLiteConnection conn = new SQLiteConnection(connStr))
             {
+                conn.Open();
                 string sheetDDL = "CREATE TABLE SHEET(" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "name CHAR(100) not null," +
                     "created DATE not null," +
                     "lastModified DATE not null);";
                 var cmd = new SQLiteCommand(sheetDDL, conn);
+                cmd.ExecuteNonQuery();
+
+                string noteDDL = "CREATE TABLE NOTE(" +
+                    "id INTEGER," +
+                    "stringPos INTEGER not null," +
+                    "fretPos INTEGER not null," +
+                    "beatLen INTEGER not null," +
+                    "FOREIGN KEY(id)" +
+                    "REFERENCES SHEET(id)" +
+                    "ON DELETE CASCADE " +
+                    "ON UPDATE CASCADE)";
+
+                cmd = new SQLiteCommand(noteDDL, conn);
                 cmd.ExecuteNonQuery();
             }
         }
