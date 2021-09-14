@@ -9,6 +9,7 @@
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height=".5*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
 
@@ -16,18 +17,53 @@
                    Grid.Row="0"
                    Text="악보 목록"/>
 
+        <Grid Grid.Row="1"
+              Margin="10 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Text="악보명"/>
+
+            <TextBlock Grid.Column="1"
+                       Text="마지막 수정일"/>
+
+            <TextBlock Grid.Column="2"
+                       Text="최초 생성일"/>
+        </Grid>
+
         <ListView Style="{DynamicResource MaterialDesignListView}"
                   SelectionMode="Single" 
                   SelectedIndex="0"
+                  Grid.Row="2"
                   ItemsSource="{Binding SheetsCollection}"
-                  Grid.Row="1">
+                  HorizontalContentAlignment="Stretch">
+        
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding name}"/>
-                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="{Binding name}"/>
+
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding lastModified}"/>
+
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding created}"/>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+
     </Grid>
 </UserControl>
