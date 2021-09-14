@@ -1,4 +1,5 @@
 ﻿using GuitarReader.Models;
+using GuitarReader.Services;
 using System.Collections.ObjectModel;
 
 namespace GuitarReader.ViewModels
@@ -9,7 +10,11 @@ namespace GuitarReader.ViewModels
 
         public SheetListViewModel()
         {
-
+            DBService<Sheet> service = new DBService<Sheet>();
+            foreach (var i in service.Read("sheet", "*"))
+            {
+                SheetsCollection.Add(i);
+            }
         }
     }
 }
