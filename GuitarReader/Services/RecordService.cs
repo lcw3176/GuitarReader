@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GuitarReader.Models;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,8 +11,9 @@ namespace GuitarReader.Services
 {
     class RecordService
     {
-        private Grid sheet;
-        private int count = 0;
+        private Grid grid;
+        private int count = 1;
+        private List<Note> noteList = new List<Note>();
         DispatcherTimer testTimer = new DispatcherTimer();
 
         public RecordService()
@@ -22,27 +24,64 @@ namespace GuitarReader.Services
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            AddTabToSheet(count++.ToString());
-            
-            if(count >= 6)
+            AddTabToSheet(count.ToString());
+            noteList.Add(new Note()
             {
-                count = 0;
+                fretPos = count,
+                stringPos = count,
+                beatLen = DateTime.Now.Second,
+            });
+
+            count++;
+            if (count > 6)
+            {
+                count = 1;
             }
         }
 
+        /// <summary>
+        /// 녹음 시작
+        /// </summary>
+        /// <param name="gridSheet">view 그리드 오브젝트</param>
         public void StartRecord(object gridSheet)
         {
-            sheet = gridSheet as Grid;
+            grid = gridSheet as Grid;
+            noteList.Clear();
             testTimer.Start();
 
         }
 
+        /// <summary>
+        /// 녹음 중지
+        /// </summary>
         public void StopRecord()
         {
             testTimer.Stop();
+            Console.WriteLine("녹음 끝");
+            foreach (var i in noteList)
+            {
+                Console.WriteLine(string.Format("{0} {1} {2}", i.fretPos, i.stringPos, i.beatLen));
+            }            
+        }
+
+        /// <summary>
+        /// 녹음 정보 저장
+        /// </summary>
+        /// <param name="sheetName">저장될 이름</param>
+        public void SaveRecord(string sheetName)
+        {
+            Sheet sheet = new Sheet();
+            sheet.created = DateTime.Now;
+            sheet.lastModified = DateTime.Now;
+            sheet.name = sheetName;
+            
         }
 
 
+        /// <summary>
+        /// view에 음정 표시
+        /// </summary>
+        /// <param name="tab"></param>
         private void AddTabToSheet(string tab)
         {
             TextBlock tabBlock = new TextBlock();
@@ -56,15 +95,14 @@ namespace GuitarReader.Services
                 Y = 0,
             };
 
-            sheet.Children.Add(tabBlock);
+            grid.Children.Add(tabBlock);
             Grid.SetRow(tabBlock, count);
 
             TranslateTransform trans = new TranslateTransform();
             tabBlock.RenderTransform = trans;
             DoubleAnimation anim = new DoubleAnimation(650, 0, TimeSpan.FromSeconds(5));
-            anim.Completed += (sender, e) => { sheet.Children.RemoveAt(0); };
+            anim.Completed += (sender, e) => { grid.Children.RemoveAt(0); };
             trans.BeginAnimation(TranslateTransform.XProperty, anim);
- 
         }
 
 
