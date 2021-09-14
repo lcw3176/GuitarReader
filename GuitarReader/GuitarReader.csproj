@@ -96,6 +96,9 @@
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\InputTiitleDialog.xaml.cs">
+      <DependentUpon>InputTiitleDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ParseView.xaml.cs">
       <DependentUpon>ParseView.xaml</DependentUpon>
     </Compile>
@@ -118,6 +121,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InputTiitleDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
