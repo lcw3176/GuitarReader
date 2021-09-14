@@ -57,11 +57,7 @@ namespace GuitarReader.Services
         public void StopRecord()
         {
             testTimer.Stop();
-            Console.WriteLine("녹음 끝");
-            foreach (var i in noteList)
-            {
-                Console.WriteLine(string.Format("{0} {1} {2}", i.fretPos, i.stringPos, i.beatLen));
-            }            
+            
         }
 
         /// <summary>
@@ -71,10 +67,12 @@ namespace GuitarReader.Services
         public void SaveRecord(string sheetName)
         {
             Sheet sheet = new Sheet();
-            sheet.created = DateTime.Now;
-            sheet.lastModified = DateTime.Now;
+            sheet.created = DateTime.Now.ToString();
+            sheet.lastModified = DateTime.Now.ToString();
             sheet.name = sheetName;
-            
+
+            DBService<Sheet> dBService = new DBService<Sheet>();
+            dBService.Write("Sheet", sheet);
         }
 
 
