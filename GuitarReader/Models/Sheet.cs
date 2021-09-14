@@ -8,8 +8,7 @@ namespace GuitarReader.Models
         /// <summary>
         /// 인덱스 primary key, auto increment
         /// </summary>
-        public int id { get; set; }
-        public List<Note> notes { get; set; }
+        public int idKey { get; set; }
 
         /// <summary>
         /// 악보 이름
@@ -19,11 +18,11 @@ namespace GuitarReader.Models
         /// <summary>
         /// 처음 만든 날짜
         /// </summary>
-        public DateTime created { get; set; }
+        public string created { get; set; }
 
         /// <summary>
         /// 마지막 수정 날짜
         /// </summary>
-        public DateTime lastModified { get; set; }
+        public string lastModified { get; set; }
     }
 }
