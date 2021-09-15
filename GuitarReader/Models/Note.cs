@@ -3,6 +3,10 @@
     public class Note
     {
         /// <summary>
+        /// foreign key, Sheet Id 참조
+        /// </summary>
+        public int id { get; set; }
+        /// <summary>
         /// 기타 줄 종류
         /// </summary>
         public int stringPos { get; set; }
