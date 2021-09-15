@@ -71,8 +71,17 @@ namespace GuitarReader.Services
             sheet.lastModified = DateTime.Now.ToString();
             sheet.name = sheetName;
 
-            DBService<Sheet> dBService = new DBService<Sheet>();
-            dBService.Write("Sheet", sheet);
+            SheetService sheetService = new SheetService();
+            sheetService.Insert(sheet);
+            sheetService.ReadMostRecent();
+
+            //DBService<Note> noteDBService = new DBService<Note>();
+            //foreach (var i in noteList)
+            //{
+            //    i.idKey = temp.idKey;
+            //    noteDBService.Write(i);
+            //}
+            
         }
 
 
