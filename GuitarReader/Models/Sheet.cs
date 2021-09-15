@@ -8,7 +8,7 @@ namespace GuitarReader.Models
         /// <summary>
         /// 인덱스 primary key, auto increment
         /// </summary>
-        public int idKey { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// 악보 이름
