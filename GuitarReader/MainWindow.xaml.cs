@@ -1,4 +1,5 @@
-﻿using GuitarReader.ViewModels;
+﻿using GuitarReader.Services;
+using GuitarReader.ViewModels;
 using System.Windows;
 using System.Windows.Input;
 
@@ -30,6 +31,11 @@ namespace GuitarReader
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Window_Closed(object sender, System.EventArgs e)
+        {
+            DBService.GetInstace().CloseConnection();
         }
     }
 }
