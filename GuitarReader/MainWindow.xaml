@@ -15,7 +15,8 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         BorderThickness="1"
-        BorderBrush="Black">
+        BorderBrush="Black"
+        Closed="Window_Closed">
 
 
     <Grid Background="#FFEEEEEE" MouseDown="Grid_MouseDown">
