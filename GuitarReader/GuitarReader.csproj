@@ -85,6 +85,7 @@
     <Compile Include="Models\Sheet.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Services\DBService.cs" />
+    <Compile Include="Services\NoteService.cs" />
     <Compile Include="Services\RecordService.cs" />
     <Compile Include="Services\SheetService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
