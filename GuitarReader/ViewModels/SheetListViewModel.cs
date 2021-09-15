@@ -10,11 +10,8 @@ namespace GuitarReader.ViewModels
 
         public SheetListViewModel()
         {
-            DBService<Sheet> service = new DBService<Sheet>();
-            foreach (var i in service.Read("sheet", "*"))
-            {
-                SheetsCollection.Add(i);
-            }
+            SheetService sheetService = new SheetService();
+            sheetService.ReadAll().ForEach(i => SheetsCollection.Add(i));
         }
     }
 }
