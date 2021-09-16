@@ -73,15 +73,15 @@ namespace GuitarReader.Services
 
             SheetService sheetService = new SheetService();
             sheetService.Insert(sheet);
-            sheetService.ReadMostRecent();
+            Sheet temp = sheetService.ReadMostRecent();
 
-            //DBService<Note> noteDBService = new DBService<Note>();
-            //foreach (var i in noteList)
-            //{
-            //    i.idKey = temp.idKey;
-            //    noteDBService.Write(i);
-            //}
-            
+            NoteService noteService = new NoteService();
+
+            foreach(var i in noteList)
+            {
+                i.id = temp.id;
+                noteService.Insert(i);
+            }
         }
 
 
