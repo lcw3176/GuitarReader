@@ -25,7 +25,7 @@ namespace GuitarReader.Services
             string connStr = "Data Source=" + location;
             conn = new SQLiteConnection(connStr);
             conn.Open();
-            
+
             if (!IsExist())
             {
                 InitTables();
@@ -45,7 +45,23 @@ namespace GuitarReader.Services
 
         private bool IsExist()
         {
-            return new FileInfo(location).Exists;
+            string query = "SELECT COUNT(*) FROM sqlite_master WHERE NAME = 'SHEET'";
+            int result = 0;
+
+            using (var cmd = new SQLiteCommand(query, conn))
+            {
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        result = int.Parse(reader[0].ToString());
+                    }
+                   
+                }
+            }
+
+            return result == 1 ? true : false;
+
         }
 
 
