@@ -2,6 +2,7 @@
 using GuitarReader.ViewModels;
 using System.Windows;
 using System.Windows.Input;
+using Toub.Sound.Midi;
 
 namespace GuitarReader
 {
@@ -13,7 +14,10 @@ namespace GuitarReader
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainViewModel(); 
+            this.DataContext = new MainViewModel();
+            MidiPlayer.OpenMidi();
+            MidiPlayer.Play(new NoteOn(0, 0, "C4", 127));
+            
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -36,6 +40,7 @@ namespace GuitarReader
         private void Window_Closed(object sender, System.EventArgs e)
         {
             DBService.GetInstace().CloseConnection();
+            MidiPlayer.CloseMidi();
         }
     }
 }
