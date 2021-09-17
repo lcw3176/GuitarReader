@@ -38,7 +38,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="10*"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
            
@@ -74,6 +74,14 @@
                         <TextBlock Text="악보 목록" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
+
+                <ListViewItem Height="60" Padding="0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Play" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="재생" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </ListViewItem>
+                
                 <ListViewItem Height="60" Padding="0">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Edit" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
