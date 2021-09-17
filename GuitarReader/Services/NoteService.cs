@@ -1,4 +1,5 @@
 ﻿using GuitarReader.Models;
+using System.Collections.Generic;
 using System.Data.SQLite;
 
 namespace GuitarReader.Services
@@ -19,9 +20,28 @@ namespace GuitarReader.Services
         }
     
 
-        public Note ReadByName(string name)
+        public List<Note> ReadById(int id)
         {
-            return null;
+            SQLiteConnection conn = dBService.GetConnection();
+            string cmd = string.Format("SELECT * FROM NOTE WHERE id = '{0}'", id);
+            List<Note> lst = new List<Note>();
+
+            using (SQLiteCommand command = new SQLiteCommand(cmd, conn))
+            {
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Note temp = new Note();
+                        temp.fretPos = int.Parse(reader[nameof(temp.fretPos)].ToString());
+                        temp.stringPos = int.Parse(reader[nameof(temp.stringPos)].ToString());
+                        lst.Add(temp);
+                    }
+                }
+
+            }
+
+            return lst;
         }
             
     }
