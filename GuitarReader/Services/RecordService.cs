@@ -12,7 +12,8 @@ namespace GuitarReader.Services
     class RecordService
     {
         private Grid grid;
-        private int count = 1;
+        private int count = 0;
+        private int[] arr = new int[] { 7,7,7,7,5,3,3,2,0,0,3,7};
         private List<Note> noteList = new List<Note>();
         DispatcherTimer testTimer = new DispatcherTimer();
 
@@ -24,19 +25,24 @@ namespace GuitarReader.Services
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            AddTabToSheet(count.ToString());
+            AddTabToSheet(arr[count].ToString());
             noteList.Add(new Note()
             {
-                fretPos = count,
-                stringPos = count,
+                fretPos = arr[count],
+                stringPos = 1,
                 beatLen = DateTime.Now.Second,
             });
 
             count++;
-            if (count > 6)
+
+            if (count >= arr.Length - 1)
             {
-                count = 1;
+                count = 0;
             }
+            //if (count > 6)
+            //{
+            //    count = 1;
+            //}
         }
 
         /// <summary>
@@ -103,7 +109,7 @@ namespace GuitarReader.Services
             };
 
             grid.Children.Add(tabBlock);
-            Grid.SetRow(tabBlock, count);
+            Grid.SetRow(tabBlock, 1);
 
             TranslateTransform trans = new TranslateTransform();
             tabBlock.RenderTransform = trans;
