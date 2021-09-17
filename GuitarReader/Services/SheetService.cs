@@ -47,6 +47,29 @@ namespace GuitarReader.Services
             return lst;
         }
 
+        public Sheet ReadByName(string sheetName)
+        {
+            SQLiteConnection conn = dBService.GetConnection();
+            string cmd = string.Format("SELECT * FROM SHEET WHERE name = '{0}'", sheetName);
+            Sheet temp = new Sheet();
+
+            using (SQLiteCommand command = new SQLiteCommand(cmd, conn))
+            {
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        temp.id = int.Parse(reader[nameof(temp.id)].ToString());
+                        temp.created = reader[nameof(temp.created)].ToString();
+                        temp.lastModified = reader[nameof(temp.lastModified)].ToString();
+                        temp.name = reader[nameof(temp.name)].ToString();
+                    }
+                }
+            }
+
+            return temp;
+        }
+
         public Sheet ReadMostRecent()
         {
             SQLiteConnection conn = dBService.GetConnection();
