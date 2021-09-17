@@ -51,14 +51,27 @@
                             <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
 
+                 
+                        
                         <TextBlock Grid.Column="0"
-                                   Text="{Binding name}"/>
+                                   Text="{Binding name}"
+                                   VerticalAlignment="Center"/>
 
                         <TextBlock Grid.Column="1"
-                                   Text="{Binding lastModified}"/>
+                                   Text="{Binding lastModified}"
+                                   VerticalAlignment="Center"/>
 
                         <TextBlock Grid.Column="2"
-                                   Text="{Binding created}"/>
+                                   Text="{Binding created}"
+                                   VerticalAlignment="Center"/>
+
+                        <Button Grid.ColumnSpan="3"
+                                Background="Transparent"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                BorderThickness="0"
+                                Command="{Binding LoadSheetCommand}"
+                                CommandParameter="{Binding name}"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
