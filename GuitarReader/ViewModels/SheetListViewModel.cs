@@ -1,12 +1,8 @@
 ﻿using GuitarReader.Command;
 using GuitarReader.Models;
 using GuitarReader.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading;
 using System.Windows.Input;
-using Toub.Sound.Midi;
 
 namespace GuitarReader.ViewModels
 {
