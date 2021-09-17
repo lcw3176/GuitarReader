@@ -16,8 +16,7 @@ namespace GuitarReader
             InitializeComponent();
             this.DataContext = new MainViewModel();
             MidiPlayer.OpenMidi();
-            MidiPlayer.Play(new NoteOn(0, 0, "C4", 127));
-            
+            MidiPlayer.Play(new ProgramChange(0, 0, GeneralMidiInstruments.SteelAcousticGuitar));          
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
