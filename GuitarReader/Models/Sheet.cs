@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace GuitarReader.Models
 {
@@ -24,5 +25,10 @@ namespace GuitarReader.Models
         /// 마지막 수정 날짜
         /// </summary>
         public string lastModified { get; set; }
+
+        /// <summary>
+        /// 시트 클릭 시 커맨드
+        /// </summary>
+        public ICommand LoadSheetCommand { get; set; }
     }
 }
