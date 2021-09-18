@@ -24,8 +24,7 @@
 
             <Button Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                     Margin="10, 0"
-                    Command="{Binding PlayCommand}"
-                    CommandParameter="{Binding ElementName=sheet}">
+                    Command="{Binding PlayCommand}">
                 <materialDesign:PackIcon Kind="Play"/>
             </Button>
 
@@ -132,7 +131,7 @@
         </Grid>
 
         <Grid Grid.Row="2"
-              Name="sheet"
+              x:Name="gridSheet"
               Margin="10">
 
             <Grid.RowDefinitions>
