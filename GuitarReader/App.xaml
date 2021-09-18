@@ -30,10 +30,6 @@
             <DataTemplate DataType="{x:Type viewModels:SheetListViewModel}">
                 <views:SheetListView/>
             </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewModels:PlayViewModel}">
-                <views:PlayView/>
-            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
