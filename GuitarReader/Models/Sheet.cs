@@ -27,8 +27,13 @@ namespace GuitarReader.Models
         public string lastModified { get; set; }
 
         /// <summary>
-        /// 시트 클릭 시 커맨드
+        /// 시트 클릭 시 재생
         /// </summary>
-        public ICommand LoadSheetCommand { get; set; }
+        public ICommand PlaySheetCommand { get; set; }
+        
+        /// <summary>
+        /// 시트 클릭 시 편집
+        /// </summary>
+        public ICommand EditSheetCommand { get; set; }
     }
 }
