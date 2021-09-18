@@ -37,8 +37,8 @@
         <Grid Width="250" HorizontalAlignment="Left" Background="#FF222222">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="9*"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
 
            
@@ -72,26 +72,6 @@
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="FormatListBulleted" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
                         <TextBlock Text="악보 목록" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
-                    </StackPanel>
-                </ListViewItem>
-
-                <ListViewItem Height="60" Padding="0">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Play" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
-                        <TextBlock Text="재생" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
-                    </StackPanel>
-                </ListViewItem>
-                
-                <ListViewItem Height="60" Padding="0">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Edit" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
-                        <TextBlock Text="편집" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
-                    </StackPanel>
-                </ListViewItem>
-                <ListViewItem Height="60" Padding="0">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="FileExport" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
-                        <TextBlock Text="내보내기" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </ListViewItem>
 
