@@ -1,6 +1,5 @@
-﻿using System.Windows;
+﻿using GuitarReader.ViewModels;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace GuitarReader.Views
 {
@@ -12,6 +11,7 @@ namespace GuitarReader.Views
         public PlayView()
         {
             InitializeComponent();
+            this.DataContext = new PlayViewModel(gridSheet);
         }
     }
 }
