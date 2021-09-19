@@ -4,13 +4,13 @@ using System.Data.SQLite;
 
 namespace GuitarReader.Services
 {
-    class NoteService
+    class NoteService : DBService
     {
-        private DBService dBService = DBService.GetInstace();
+        //private DBService dBService = DBService.GetInstace();
 
         public void Insert(Note note)
         {
-            SQLiteConnection conn = dBService.GetConnection();
+            SQLiteConnection conn = GetConnection();
             string cmd = string.Format("INSERT INTO NOTE(id, stringPos, fretPos, beatLen) VALUES('{0}', '{1}', '{2}', '{3}')", note.id, note.stringPos, note.fretPos, note.beatLen);
 
             using (SQLiteCommand command = new SQLiteCommand(cmd, conn))
@@ -22,7 +22,7 @@ namespace GuitarReader.Services
 
         public List<Note> ReadById(int id)
         {
-            SQLiteConnection conn = dBService.GetConnection();
+            SQLiteConnection conn = GetConnection();
             string cmd = string.Format("SELECT * FROM NOTE WHERE id = '{0}'", id);
             List<Note> lst = new List<Note>();
 

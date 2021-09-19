@@ -4,13 +4,13 @@ using System.Data.SQLite;
 
 namespace GuitarReader.Services
 {
-    class SheetService
+    class SheetService : DBService
     {
-        private DBService dBService = DBService.GetInstace();
+        //private DBService dBService = DBService.GetInstace();
 
         public void Insert(Sheet sheet)
         {
-            SQLiteConnection conn = dBService.GetConnection();
+            SQLiteConnection conn = GetConnection();
             string cmd = string.Format("INSERT INTO SHEET(name, created, lastModified) VALUES('{0}', '{1}', '{2}')", sheet.name, sheet.created, sheet.lastModified);
 
             using (SQLiteCommand command = new SQLiteCommand(cmd, conn))
@@ -22,7 +22,7 @@ namespace GuitarReader.Services
 
         public List<Sheet> ReadAll()
         {
-            SQLiteConnection conn = dBService.GetConnection();
+            SQLiteConnection conn = GetConnection();
             string cmd = "SELECT * FROM SHEET";
             List<Sheet> lst = new List<Sheet>();
 
@@ -49,7 +49,7 @@ namespace GuitarReader.Services
 
         public Sheet ReadByName(string sheetName)
         {
-            SQLiteConnection conn = dBService.GetConnection();
+            SQLiteConnection conn = GetConnection();
             string cmd = string.Format("SELECT * FROM SHEET WHERE name = '{0}'", sheetName);
             Sheet temp = new Sheet();
 
@@ -72,7 +72,7 @@ namespace GuitarReader.Services
 
         public Sheet ReadMostRecent()
         {
-            SQLiteConnection conn = dBService.GetConnection();
+            SQLiteConnection conn = GetConnection();
             string cmd = "SELECT * FROM SHEET ORDER BY id DESC LIMIT 1";
             Sheet temp = new Sheet();
 
