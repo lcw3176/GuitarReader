@@ -1,6 +1,7 @@
 ﻿using GuitarReader.Command;
 using GuitarReader.Models;
 using GuitarReader.Services;
+using GuitarReader.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -33,6 +34,8 @@ namespace GuitarReader.ViewModels
         private void PlaySheetExecuteMethod(object sheetName)
         {
             Sheet sheet = sheetService.ReadByName(sheetName.ToString());
+            PlayView view = new PlayView(sheet.id);
+            view.ShowDialog();
         }
 
         /// <summary>
