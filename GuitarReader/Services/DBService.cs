@@ -4,23 +4,12 @@ using System.IO;
 
 namespace GuitarReader.Services
 {
-    class DBService
+    public class DBService
     {
         private string location = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "guitarReader.db");
-        private static DBService instance;
         private static SQLiteConnection conn;
 
-        public static DBService GetInstace()
-        {
-            if(instance == null)
-            {
-                instance = new DBService();
-            }
-
-            return instance;
-        }
-
-        private DBService()
+        public DBService()
         {
             string connStr = "Data Source=" + location;
             conn = new SQLiteConnection(connStr);
@@ -37,7 +26,7 @@ namespace GuitarReader.Services
             return conn;
         }
 
-        public void CloseConnection()
+        public static void CloseConnection()
         {
             conn.Close();
             conn.Dispose();
