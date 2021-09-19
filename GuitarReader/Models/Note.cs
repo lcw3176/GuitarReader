@@ -51,8 +51,9 @@ namespace GuitarReader.Models
         /// <summary>
         /// 음표 문자열
         /// </summary>
-        public string codeStr { get; private set; }
+        public string CodeStr { get { return codeStr; } }
 
+        private string codeStr;
         private Dictionary<(int, int), string> dict = new Dictionary<(int, int), string>();
 
         public Note()
@@ -71,23 +72,31 @@ namespace GuitarReader.Models
             dict.Add((5, 3), "C4");
             dict.Add((5, 4), "C#4");
             dict.Add((5, 5), "D4");
+            dict.Add((5, 6), "D#4");
 
             dict.Add((4, 0), "D4");
             dict.Add((4, 1), "D#4");
             dict.Add((4, 2), "E4");
             dict.Add((4, 3), "F4");
             dict.Add((4, 4), "F#4");
+            dict.Add((4, 5), "G4");
+            dict.Add((4, 6), "G#4");
 
             dict.Add((3, 0), "G4");
             dict.Add((3, 1), "G#4");
             dict.Add((3, 2), "A4");
             dict.Add((3, 3), "A#4");
+            dict.Add((3, 4), "B4");
+            dict.Add((3, 5), "C5");
+            dict.Add((3, 6), "C#5");
 
             dict.Add((2, 0), "B4");
             dict.Add((2, 1), "C5");
             dict.Add((2, 2), "C#5");
             dict.Add((2, 3), "D5");
             dict.Add((2, 4), "D#5");
+            dict.Add((2, 5), "E5");
+            dict.Add((2, 6), "F5");
 
             dict.Add((1, 0), "E5");
             dict.Add((1, 1), "F5");
