@@ -1,14 +1,6 @@
 ﻿using GuitarReader.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using Toub.Sound.Midi;
 
@@ -16,13 +8,30 @@ namespace GuitarReader.Services
 {
     class PlayService
     {
-        private Grid grid;
+        public delegate void BeatPlayEvent(int stringPos, int fretPos);
+        public event BeatPlayEvent beatPlayEvent;
+
+        public delegate void BeatEndEvent();
+        public event BeatEndEvent beatEndEvent;
+
         private NoteService noteService = new NoteService();
         private DispatcherTimer timer = new DispatcherTimer();
         private List<Note> lst;
         private int count = 0;
+        private static PlayService instacne;
 
-        public PlayService()
+        public static PlayService GetInstacne()
+        {
+            if(instacne == null)
+            {
+                instacne = new PlayService();
+            }
+
+            return instacne;
+        }
+        
+
+        private PlayService()
         {
             timer.Interval = TimeSpan.FromSeconds(0.5);
             timer.Tick += Timer_Tick;
@@ -30,44 +39,51 @@ namespace GuitarReader.Services
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            AddTabToSheet(lst[count].stringPos, lst[count].fretPos);
-            MidiPlayer.Play(new NoteOn(0, 0, lst[count].codeStr, 127));
+            MidiPlayer.Play(new NoteOn(0, 0, lst[count].CodeStr, 127));
+            beatPlayEvent(lst[count].stringPos, lst[count].fretPos);
             count++;
 
-            if(count >= lst.Count)
+            if (count >= lst.Count)
             {
+                count = 0;
                 timer.Stop();
+                beatEndEvent();
             }
         }
 
-        public void Play(object _grid, int songId)
+        public void Play(int songId)
         {
-            grid = _grid as Grid;
             lst = noteService.ReadById(songId);
             timer.Start();
         }
 
-        private void AddTabToSheet(int stringPos, int fretPos)
+        public void Play(string codeStr)
         {
-            TextBlock tabBlock = new TextBlock();
-            tabBlock.Text = fretPos.ToString();
-            tabBlock.FontSize = 30;
-            tabBlock.Foreground = Brushes.White;
-            tabBlock.VerticalAlignment = VerticalAlignment.Center;
-            tabBlock.RenderTransform = new TranslateTransform
-            {
-                X = 650,
-                Y = 0,
-            };
+            MidiPlayer.Play(new NoteOn(0, 0, codeStr, 127));
+        }
 
-            grid.Children.Add(tabBlock);
-            Grid.SetRow(tabBlock, stringPos);
+        public void Pause()
+        {
+            timer.Stop();
+        }
 
-            TranslateTransform trans = new TranslateTransform();
-            tabBlock.RenderTransform = trans;
-            DoubleAnimation anim = new DoubleAnimation(650, 0, TimeSpan.FromSeconds(5));
-            anim.Completed += (sender, e) => { grid.Children.RemoveAt(0); };
-            trans.BeginAnimation(TranslateTransform.XProperty, anim);
+        public void Stop()
+        {
+            count = 0;
+            timer.Stop();
+        }
+
+        public void Open()
+        {
+            MidiPlayer.OpenMidi();
+            MidiPlayer.Play(new ProgramChange(0, 0, GeneralMidiInstruments.SteelAcousticGuitar));
+        }
+
+        public void Close()
+        {
+            count = 0;
+            timer.Stop();
+            MidiPlayer.CloseMidi();
         }
     }
 }
