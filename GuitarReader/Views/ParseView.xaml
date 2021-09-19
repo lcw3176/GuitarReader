@@ -351,7 +351,7 @@
             <StackPanel Grid.Row="2" VerticalAlignment="Center" Margin="25, 0">
                 <TextBlock Opacity=".7" FontSize="13">기타를 연주하면<LineBreak />코드와 프렛의 위치가 표시됩니다.</TextBlock>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Foreground="#303030" FontSize="40" Text="E4" />
+                    <TextBlock Foreground="#303030" FontSize="40" Text="{Binding CodeStr}" />
                 </StackPanel>
             </StackPanel>
         </Grid>
