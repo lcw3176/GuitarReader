@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GuitarReader.Models;
+using GuitarReader.Services;
+using System;
 using System.Windows.Threading;
 
 namespace GuitarReader.ViewModels
@@ -10,6 +8,7 @@ namespace GuitarReader.ViewModels
     class ParseViewModel : BaseViewModel
     {
         private int rowPosition;
+        private Note note = new Note();
         public int RowPosition
         {
             get { return rowPosition; }
@@ -31,11 +30,28 @@ namespace GuitarReader.ViewModels
             }
         }
 
-        
+        private string codeStr;
+        public string CodeStr
+        {
+            get { return codeStr; }
+            set
+            {
+                codeStr = value;
+                OnPropertyChanged("CodeStr");
+            }
+        }
+
+
+        PlayService playservice;
+        DispatcherTimer timer;
+        private int testCount = 0;
 
         public ParseViewModel()
         {
-            DispatcherTimer timer = new DispatcherTimer();
+            playservice = PlayService.GetInstacne();
+            playservice.Open();
+
+            timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(0.5);
             timer.Tick += Timer_Tick;
             timer.Start();
@@ -45,7 +61,17 @@ namespace GuitarReader.ViewModels
         {
             Random random = new Random();
             RowPosition = random.Next(0, 6);
-            ColumnPosition = random.Next(0, 10);
+            ColumnPosition = random.Next(0, 6);
+            note.stringPos = RowPosition + 1;
+            note.fretPos = columnPosition + 1;
+            CodeStr = note.CodeStr;
+            playservice.Play(CodeStr);
+            testCount++;
+
+            if(testCount >= 10)
+            {
+                timer.Stop();
+            }
         }
     }
 }
