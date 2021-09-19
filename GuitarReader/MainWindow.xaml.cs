@@ -14,9 +14,7 @@ namespace GuitarReader
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainViewModel();
-            MidiPlayer.OpenMidi();
-            MidiPlayer.Play(new ProgramChange(0, 0, GeneralMidiInstruments.SteelAcousticGuitar));          
+            this.DataContext = new MainViewModel();  
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -38,8 +36,7 @@ namespace GuitarReader
 
         private void Window_Closed(object sender, System.EventArgs e)
         {
-            DBService.GetInstace().CloseConnection();
-            MidiPlayer.CloseMidi();
+            DBService.CloseConnection();
         }
     }
 }
