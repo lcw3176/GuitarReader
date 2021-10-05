@@ -6,7 +6,6 @@ namespace GuitarReader.Services
 {
     class SheetService : DBService
     {
-        //private DBService dBService = DBService.GetInstace();
 
         public void Insert(Sheet sheet)
         {
