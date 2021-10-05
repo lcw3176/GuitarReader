@@ -1,21 +1,19 @@
 ﻿using GuitarReader.Models;
 using System;
 using System.Collections.Generic;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace GuitarReader.Services
 {
     class RecordService
     {
-        private Grid grid;
         private int count = 0;
         private int[] arr = new int[] { 7,7,7,7,5,3,3,2,0,0,3,7};
         private List<Note> noteList = new List<Note>();
         DispatcherTimer testTimer = new DispatcherTimer();
+        public delegate void RecordAddEvent(int stringPos, int fretPos);
+        public event RecordAddEvent recordAddEvent;
 
         public RecordService()
         {
@@ -25,7 +23,7 @@ namespace GuitarReader.Services
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            AddTabToSheet(arr[count].ToString());
+            recordAddEvent(1, arr[count]);
             noteList.Add(new Note()
             {
                 fretPos = arr[count],
@@ -39,19 +37,14 @@ namespace GuitarReader.Services
             {
                 count = 0;
             }
-            //if (count > 6)
-            //{
-            //    count = 1;
-            //}
         }
 
         /// <summary>
         /// 녹음 시작
         /// </summary>
-        /// <param name="gridSheet">view 그리드 오브젝트</param>
-        public void StartRecord(object gridSheet)
+        /// <param name="obj"></param>
+        public void StartRecord(object obj)
         {
-            grid = gridSheet as Grid;
             noteList.Clear();
             testTimer.Start();
 
@@ -90,38 +83,5 @@ namespace GuitarReader.Services
             }
         }
 
-
-        /// <summary>
-        /// view에 음정 표시
-        /// </summary>
-        /// <param name="tab"></param>
-        private void AddTabToSheet(string tab)
-        {
-            TextBlock tabBlock = new TextBlock();
-            tabBlock.Text = tab;
-            tabBlock.FontSize = 30;
-            tabBlock.Foreground = Brushes.White;
-            tabBlock.VerticalAlignment = VerticalAlignment.Center;
-            tabBlock.RenderTransform = new TranslateTransform
-            {
-                X = 650,
-                Y = 0,
-            };
-
-            grid.Children.Add(tabBlock);
-            Grid.SetRow(tabBlock, 1);
-
-            TranslateTransform trans = new TranslateTransform();
-            tabBlock.RenderTransform = trans;
-            DoubleAnimation anim = new DoubleAnimation(650, 0, TimeSpan.FromSeconds(5));
-            anim.Completed += (sender, e) => { grid.Children.RemoveAt(0); };
-            trans.BeginAnimation(TranslateTransform.XProperty, anim);
-        }
-
-
-        private void ObserveSound()
-        {
-            AddTabToSheet(2.ToString());
-        }
     }
 }
