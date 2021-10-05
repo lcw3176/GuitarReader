@@ -6,7 +6,6 @@ namespace GuitarReader.Services
 {
     class NoteService : DBService
     {
-        //private DBService dBService = DBService.GetInstace();
 
         public void Insert(Note note)
         {
