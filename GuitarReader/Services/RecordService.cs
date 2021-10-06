@@ -1,7 +1,6 @@
 ﻿using GuitarReader.Models;
 using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace GuitarReader.Services
