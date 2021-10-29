@@ -6,6 +6,9 @@ using Toub.Sound.Midi;
 
 namespace GuitarReader.Services
 {
+    /// <summary>
+    /// 악보 재생 클래스
+    /// </summary>
     class PlayService
     {
         public delegate void BeatPlayEvent(int stringPos, int fretPos);

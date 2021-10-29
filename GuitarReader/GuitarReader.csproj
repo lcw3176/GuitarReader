@@ -73,7 +73,7 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="Toub.Sound.Midi">
-      <HintPath>..\..\..\..\Downloads\Toub.Sound.Midi.dll</HintPath>
+      <HintPath>..\..\..\Downloads\Toub.Sound.Midi.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -85,13 +85,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="Models\SerialBaudRate.cs" />
+    <Compile Include="Models\SerialDevice.cs" />
     <Compile Include="Models\Sheet.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Services\AnimService.cs" />
     <Compile Include="Services\DBService.cs" />
     <Compile Include="Services\NoteService.cs" />
+    <Compile Include="Services\ParseFrequencyService.cs" />
     <Compile Include="Services\PlayService.cs" />
     <Compile Include="Services\RecordService.cs" />
+    <Compile Include="Services\SerialService.cs" />
     <Compile Include="Services\SheetService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />

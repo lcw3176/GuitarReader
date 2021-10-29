@@ -11,9 +11,12 @@ namespace GuitarReader.Services
 
         public DBService()
         {
-            string connStr = "Data Source=" + location;
-            conn = new SQLiteConnection(connStr);
-            conn.Open();
+            if (conn == null)
+            {
+                string connStr = "Data Source=" + location;
+                conn = new SQLiteConnection(connStr);
+                conn.Open();
+            }
 
             if (!IsExist())
             {

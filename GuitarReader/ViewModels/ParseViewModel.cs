@@ -9,6 +9,7 @@ namespace GuitarReader.ViewModels
     {
         private int rowPosition;
         private Note note = new Note();
+        private ParseFrequencyService parseFrequencyService = new ParseFrequencyService();
         public int RowPosition
         {
             get { return rowPosition; }
@@ -43,35 +44,37 @@ namespace GuitarReader.ViewModels
 
 
         PlayService playservice;
-        DispatcherTimer timer;
-        private int testCount = 0;
 
         public ParseViewModel()
         {
             playservice = PlayService.GetInstacne();
             playservice.Open();
 
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(0.5);
-            timer.Tick += Timer_Tick;
-            timer.Start();
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            Random random = new Random();
-            RowPosition = random.Next(0, 6);
-            ColumnPosition = random.Next(0, 6);
-            note.stringPos = RowPosition + 1;
-            note.fretPos = columnPosition + 1;
-            CodeStr = note.CodeStr;
-            playservice.Play(CodeStr);
-            testCount++;
-
-            if(testCount >= 10)
+            if (SerialService.isOpen())
             {
-                timer.Stop();
+                SerialService.dataReceiveEvent += SerialService_dataReceiveEvent;
             }
+            
         }
+
+        private void SerialService_dataReceiveEvent(int hz)
+        {
+            CodeStr = parseFrequencyService.Parse(hz);
+
+            if (!string.IsNullOrEmpty(CodeStr))
+            {
+                RowPosition = note.dict[CodeStr].Item1 - 1;
+                ColumnPosition = note.dict[CodeStr].Item2;
+
+                Console.WriteLine(RowPosition);
+                Console.WriteLine(ColumnPosition);
+                note.stringPos = RowPosition + 1;
+                note.fretPos = columnPosition + 1;
+            }
+            
+
+            //playservice.Play(CodeStr);
+        }
+
     }
 }
