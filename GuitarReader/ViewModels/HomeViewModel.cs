@@ -1,17 +1,20 @@
-﻿using GuitarReader.Models;
+﻿using GuitarReader.Command;
+using GuitarReader.Models;
+using GuitarReader.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace GuitarReader.ViewModels
 {
     class HomeViewModel : BaseViewModel
     {
         private ObservableCollection<SerialDevice> serialDevices = new ObservableCollection<SerialDevice>();
+        private ObservableCollection<SerialBaudRate> serialBaudRates = new ObservableCollection<SerialBaudRate>();
 
+        private SerialService serialService = new SerialService();
+        public ICommand ConnectCommand { get; set; }
         public ObservableCollection<SerialDevice> SerialDevices
         {
             get { return serialDevices; }
@@ -19,6 +22,16 @@ namespace GuitarReader.ViewModels
             {
                 serialDevices = value;
                 OnPropertyChanged("SerialDevices");
+            }
+        }
+
+        public ObservableCollection<SerialBaudRate> SerialBaudRates
+        {
+            get { return serialBaudRates; }
+            set
+            {
+                serialBaudRates = value;
+                OnPropertyChanged("SerialBaudRates");
             }
         }
 
@@ -34,9 +47,9 @@ namespace GuitarReader.ViewModels
             }
         }
 
-        private int selectedBaudRate;
+        private SerialBaudRate selectedBaudRate;
 
-        public int SelectedBaudRate
+        public SerialBaudRate SelectedBaudRate
         {
             get { return selectedBaudRate; }
             set
@@ -46,26 +59,49 @@ namespace GuitarReader.ViewModels
             }
         }
 
-        enum BaudRate
-        {
-            Normal, // 9600 
-            Fast, // 115200
-        };
 
         public HomeViewModel()
         {
-            /// 포트 뷰 테스트
-            for(int i = 0; i < 5; i++)
+            foreach(string i in serialService.GetSerialPortNames())
             {
+
                 serialDevices.Add(new SerialDevice()
                 {
-                    name = "COM" + i,
+                    name = i,
                 });
-
             }
 
-            SelectedSerial = serialDevices[0];
-            SelectedBaudRate = (int)BaudRate.Fast;
+            if(serialDevices.Count != 0)
+            {
+                SelectedSerial = serialDevices[0];
+            }
+            
+            foreach(int i in SerialBaudRate.BaudRate)
+            {
+                SerialBaudRates.Add(new SerialBaudRate()
+                {
+                    rate = i,
+                });
+            }
+            SelectedBaudRate = SerialBaudRates[0];
+            ConnectCommand = new RelayCommand(ConnectExecuteMethod);
+        }
+
+        private void ConnectExecuteMethod(object obj)
+        {
+            if(SelectedSerial != null)
+            {
+                if (serialService.TryConnect(SelectedSerial.name, SelectedBaudRate.rate))
+                {
+                    MessageBox.Show("연결이 완료되었습니다.");
+                }
+
+                else
+                {
+                    MessageBox.Show("다시 시도해 주세요.");
+                }
+            }
+            
         }
     }
 }
