@@ -7,8 +7,8 @@ namespace GuitarReader.Services
     class SerialService
     {
         private static SerialPort serialPort;
-        public delegate void DataReceiveEvent(double hz, double volume);
-        public event DataReceiveEvent dataReceiveEvent;
+        public delegate void DataReceiveEvent(int hz);
+        public static event DataReceiveEvent dataReceiveEvent;
 
 
         /// <summary>
@@ -26,11 +26,11 @@ namespace GuitarReader.Services
         /// <param name="portName"></param>
         /// <param name="baudRate"></param>
         /// <returns></returns>
-        public bool ConnectSerialPort(string portName, int baudRate)
+        public bool TryConnect(string portName, int baudRate)
         {
             try
             {
-                if(serialPort.IsOpen)
+                if(isOpen())
                 {
                     serialPort.DataReceived -= SerialPort_DataReceived;
                     serialPort.Close();                    
@@ -55,6 +55,16 @@ namespace GuitarReader.Services
             }
         }
 
+        public static bool isOpen()
+        {
+            if(serialPort != null && serialPort.IsOpen)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// 데이터 리시브 이벤트
         /// </summary>
@@ -62,20 +72,14 @@ namespace GuitarReader.Services
         /// <param name="e"></param>
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            byte[] buffer = new byte[11];
+            int hz = int.Parse(serialPort.ReadLine());
+            Console.WriteLine(hz);
 
-            int offset = 0;
-
-            while (offset <= buffer.Length)
+            if(dataReceiveEvent != null)
             {
-                offset = serialPort.Read(buffer, offset, buffer.Length);
+                dataReceiveEvent(hz);
             }
-
-            string[] data = Encoding.ASCII.GetString(buffer).Split(',');
-            double hz = double.Parse(data[0]);
-            double volume = double.Parse(data[1]);
-
-            dataReceiveEvent(hz, volume);
+            
         }
     }
 }
