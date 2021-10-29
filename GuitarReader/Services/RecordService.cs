@@ -5,6 +5,9 @@ using System.Windows.Threading;
 
 namespace GuitarReader.Services
 {
+    /// <summary>
+    /// 악보 녹음 클래스
+    /// </summary>
     class RecordService
     {
         private int count = 0;
