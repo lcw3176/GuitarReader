@@ -1,21 +1,28 @@
 ﻿using System;
+using System.Collections;
 using System.IO.Ports;
 using System.Text;
 
 namespace GuitarReader.Services
 {
-    class SerialService
+    static class SerialService
     {
         private static SerialPort serialPort;
-        public delegate void DataReceiveEvent(int hz);
+        private static string owner = string.Empty;
+
+        public delegate void DataReceiveEvent(string owner, int hz);
         public static event DataReceiveEvent dataReceiveEvent;
 
+        public static void CheckIn(string name)
+        {
+            owner = name;
+        }
 
         /// <summary>
         /// 현재 연결된 포트 이름 가져오기
         /// </summary>
         /// <returns></returns>
-        public string[] GetSerialPortNames()
+        public static string[] GetSerialPortNames()
         {
             return SerialPort.GetPortNames();
         }
@@ -26,7 +33,7 @@ namespace GuitarReader.Services
         /// <param name="portName"></param>
         /// <param name="baudRate"></param>
         /// <returns></returns>
-        public bool TryConnect(string portName, int baudRate)
+        public static bool TryConnect(string portName, int baudRate)
         {
             try
             {
@@ -70,16 +77,16 @@ namespace GuitarReader.Services
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private static void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            int hz = int.Parse(serialPort.ReadLine());
-            Console.WriteLine(hz);
 
-            if(dataReceiveEvent != null)
+            if(int.TryParse(serialPort.ReadLine(), out int hz))
             {
-                dataReceiveEvent(hz);
+                if (hz >= 10)
+                {
+                    dataReceiveEvent(owner, hz);
+                }
             }
-            
         }
     }
 }
