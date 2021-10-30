@@ -10,36 +10,45 @@ namespace GuitarReader.Services
     /// </summary>
     class RecordService
     {
-        private int count = 0;
-        private int[] arr = new int[] { 7,7,7,7,5,3,3,2,0,0,3,7};
+
         private List<Note> noteList = new List<Note>();
-        DispatcherTimer testTimer = new DispatcherTimer();
+        private Note note = new Note();
+        private ParseFrequencyService parseFrequencyService = new ParseFrequencyService();
+
         public delegate void RecordAddEvent(int stringPos, int fretPos);
         public event RecordAddEvent recordAddEvent;
 
         public RecordService()
         {
-            testTimer.Interval = TimeSpan.FromSeconds(1);
-            testTimer.Tick += Timer_Tick;
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            recordAddEvent(1, arr[count]);
-            noteList.Add(new Note()
+            if (SerialService.isOpen())
             {
-                fretPos = arr[count],
-                stringPos = 1,
-                beatLen = DateTime.Now.Second,
-            });
-
-            count++;
-
-            if (count >= arr.Length - 1)
-            {
-                count = 0;
+                SerialService.CheckIn(this.GetType().Name);
+                SerialService.dataReceiveEvent += SerialService_dataReceiveEvent;
             }
         }
+
+        private void SerialService_dataReceiveEvent(string owner, int hz)
+        {
+            if (owner != this.GetType().Name)
+            {
+                return;
+            }
+
+            string codeStr = parseFrequencyService.Parse(hz);
+            if (!string.IsNullOrEmpty(codeStr))
+            {
+                recordAddEvent(note.dict[codeStr].Item1, note.dict[codeStr].Item2);
+
+                noteList.Add(new Note()
+                {
+                    stringPos = note.dict[codeStr].Item1,
+                    fretPos = note.dict[codeStr].Item2,
+                    beatLen = DateTime.Now.Second,
+                });
+            }
+            
+        }
+
 
         /// <summary>
         /// 녹음 시작
@@ -48,7 +57,6 @@ namespace GuitarReader.Services
         public void StartRecord(object obj)
         {
             noteList.Clear();
-            testTimer.Start();
 
         }
 
@@ -57,7 +65,6 @@ namespace GuitarReader.Services
         /// </summary>
         public void StopRecord()
         {
-            testTimer.Stop();
             
         }
 
