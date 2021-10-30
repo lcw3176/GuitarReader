@@ -1,8 +1,10 @@
 ﻿using GuitarReader.Command;
 using GuitarReader.Services;
 using GuitarReader.Views;
+using System;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace GuitarReader.ViewModels
 {
@@ -72,7 +74,13 @@ namespace GuitarReader.ViewModels
         /// <param name="fretPos">프렛 위치</param>
         private void RecordService_recordAddEvent(int stringPos, int fretPos)
         {
+            if (animService == null || !isRun)
+            {
+                return;
+            }
+
             animService.Start(stringPos, fretPos);
+
         }
 
     }
