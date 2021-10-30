@@ -52,13 +52,19 @@ namespace GuitarReader.ViewModels
 
             if (SerialService.isOpen())
             {
+                SerialService.CheckIn(this.GetType().Name);
                 SerialService.dataReceiveEvent += SerialService_dataReceiveEvent;
             }
             
         }
 
-        private void SerialService_dataReceiveEvent(int hz)
+        private void SerialService_dataReceiveEvent(string owner, int hz)
         {
+            if(owner != this.GetType().Name)
+            {
+                return;
+            }
+
             CodeStr = parseFrequencyService.Parse(hz);
 
             if (!string.IsNullOrEmpty(CodeStr))
@@ -66,14 +72,9 @@ namespace GuitarReader.ViewModels
                 RowPosition = note.dict[CodeStr].Item1 - 1;
                 ColumnPosition = note.dict[CodeStr].Item2;
 
-                Console.WriteLine(RowPosition);
-                Console.WriteLine(ColumnPosition);
-                note.stringPos = RowPosition + 1;
-                note.fretPos = columnPosition + 1;
+                note.stringPos = RowPosition;
+                note.fretPos = columnPosition;
             }
-            
-
-            //playservice.Play(CodeStr);
         }
 
     }
