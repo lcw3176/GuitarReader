@@ -1,20 +1,19 @@
 ﻿using GuitarReader.Models;
 using System;
-using System.Collections.Generic;
 
 namespace GuitarReader.Services
 {
     class ParseFrequencyService
     {
-
+        private Note note = new Note();
         public string Parse(int hz)
         {
-            Note note = new Note();
+
             string result = string.Empty;
             
             foreach (string i in note.frequencyDict.Keys)
             {
-                if(Math.Abs(note.frequencyDict[i] * 0.97 - hz) <= 7)
+                if(Math.Abs(note.frequencyDict[i] * 0.95 - hz) <= 7)
                 {
                     result = i;
                     break;
