@@ -57,12 +57,8 @@ namespace GuitarReader.Services
         public void Play(int songId)
         {
             lst = noteService.ReadById(songId);
-            timer.Start();
-        }
 
-        public void Play(string codeStr)
-        {
-            MidiPlayer.Play(new NoteOn(0, 0, codeStr, 127));
+            timer.Start();
         }
 
         public void Pause()
