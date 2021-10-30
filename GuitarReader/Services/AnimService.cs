@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Threading;
 
 namespace GuitarReader.Services
 {
@@ -43,33 +44,36 @@ namespace GuitarReader.Services
 
         public void Start(int stringPos, int fretPos)
         {
-            TextBlock tabBlock = new TextBlock();
-            tabBlock.Text = fretPos.ToString();
-            tabBlock.FontSize = 30;
-            tabBlock.Foreground = Brushes.White;
-            tabBlock.VerticalAlignment = VerticalAlignment.Center;
-            tabBlock.RenderTransform = new TranslateTransform
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
             {
-                X = grid.ActualWidth,
-                Y = 0,
-            };
+                TextBlock tabBlock = new TextBlock();
+                tabBlock.Text = fretPos.ToString();
+                tabBlock.FontSize = 30;
+                tabBlock.Foreground = Brushes.White;
+                tabBlock.VerticalAlignment = VerticalAlignment.Center;
+                tabBlock.RenderTransform = new TranslateTransform
+                {
+                    X = grid.ActualWidth,
+                    Y = 0,
+                };
 
-            grid.Children.Add(tabBlock);
-            Grid.SetRow(tabBlock, stringPos);
+                grid.Children.Add(tabBlock);
+                Grid.SetRow(tabBlock, stringPos);
 
-            TranslateTransform trans = new TranslateTransform();
-            tabBlock.RenderTransform = trans;
-            DoubleAnimation anim = new DoubleAnimation(grid.ActualWidth, 0, TimeSpan.FromSeconds(5));
-            trans.BeginAnimation(TranslateTransform.XProperty, anim);
+                TranslateTransform trans = new TranslateTransform();
+                tabBlock.RenderTransform = trans;
+                DoubleAnimation anim = new DoubleAnimation(grid.ActualWidth, 0, TimeSpan.FromSeconds(5));
+                trans.BeginAnimation(TranslateTransform.XProperty, anim);
 
-            var controller = anim.CreateClock();
-            controller.Completed += (sender, e) =>
-            {
-                controllers.RemoveAt(0);
-                grid.Children.RemoveAt(0);
-            };
-            controllers.Add(controller);
-            trans.ApplyAnimationClock(TranslateTransform.XProperty, controller);
+                var controller = anim.CreateClock();
+                controller.Completed += (sender, e) =>
+                {
+                    controllers.RemoveAt(0);
+                    grid.Children.RemoveAt(0);
+                };
+                controllers.Add(controller);
+                trans.ApplyAnimationClock(TranslateTransform.XProperty, controller);
+            }));
 
         }
     }
