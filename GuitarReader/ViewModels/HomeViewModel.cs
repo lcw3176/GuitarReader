@@ -13,7 +13,7 @@ namespace GuitarReader.ViewModels
         private ObservableCollection<SerialDevice> serialDevices = new ObservableCollection<SerialDevice>();
         private ObservableCollection<SerialBaudRate> serialBaudRates = new ObservableCollection<SerialBaudRate>();
 
-        private SerialService serialService = new SerialService();
+      
         public ICommand ConnectCommand { get; set; }
         public ObservableCollection<SerialDevice> SerialDevices
         {
@@ -62,7 +62,7 @@ namespace GuitarReader.ViewModels
 
         public HomeViewModel()
         {
-            foreach(string i in serialService.GetSerialPortNames())
+            foreach(string i in SerialService.GetSerialPortNames())
             {
 
                 serialDevices.Add(new SerialDevice()
@@ -91,7 +91,7 @@ namespace GuitarReader.ViewModels
         {
             if(SelectedSerial != null)
             {
-                if (serialService.TryConnect(SelectedSerial.name, SelectedBaudRate.rate))
+                if (SerialService.TryConnect(SelectedSerial.name, SelectedBaudRate.rate))
                 {
                     MessageBox.Show("연결이 완료되었습니다.");
                 }
