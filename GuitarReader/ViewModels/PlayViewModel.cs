@@ -1,5 +1,6 @@
 ﻿using GuitarReader.Command;
 using GuitarReader.Services;
+using GuitarReader.Util;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -22,8 +23,8 @@ namespace GuitarReader.ViewModels
             }
         }
 
-        private PlayService playService = PlayService.GetInstacne();
-        private AnimService animService;
+        private PlayUtil playUtil = new PlayUtil();
+        private AnimUtil animUtil;
         private int playId;
 
         public PlayViewModel(Grid _gridSheet, int _playId)
@@ -31,10 +32,10 @@ namespace GuitarReader.ViewModels
             PlayCommand = new RelayCommand(PlayExecuteMethod);
             PauseCommand = new RelayCommand(PauseExecuteMethod);
             StopCommand = new RelayCommand(StopExecuteMethod);
-            animService = new AnimService(_gridSheet);
-            
-            playService.beatPlayEvent += (stringPos, fretPos) => animService.Start(stringPos, fretPos);
-            playService.beatEndEvent += () => { IsRun = false; };
+            animUtil = new AnimUtil(_gridSheet);
+
+            playUtil.beatPlayEvent += (stringPos, fretPos) => animUtil.AddTab(stringPos, fretPos);
+            playUtil.beatEndEvent += () => { IsRun = false; };
 
             playId = _playId;
         }
@@ -47,8 +48,8 @@ namespace GuitarReader.ViewModels
         private void PlayExecuteMethod(object obj)
         {
             IsRun = true;
-            playService.Play(playId);
-            animService.Resume();
+            playUtil.Play(playId);
+            animUtil.Resume();
         }
 
 
@@ -59,8 +60,8 @@ namespace GuitarReader.ViewModels
         private void PauseExecuteMethod(object obj)
         {
             IsRun = false;
-            playService.Pause();
-            animService.Pause();
+            playUtil.Pause();
+            animUtil.Pause();
         }
 
 
@@ -71,8 +72,8 @@ namespace GuitarReader.ViewModels
         private void StopExecuteMethod(object obj)
         {
             IsRun = false;
-            playService.Stop();
-            animService.Stop();
+            playUtil.Stop();
+            animUtil.Stop();
         }
     }
 }

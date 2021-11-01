@@ -1,6 +1,7 @@
 ﻿using GuitarReader.Command;
 using GuitarReader.Models;
 using GuitarReader.Services;
+using GuitarReader.Util;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -62,7 +63,7 @@ namespace GuitarReader.ViewModels
 
         public HomeViewModel()
         {
-            foreach(string i in SerialService.GetSerialPortNames())
+            foreach(string i in SerialUtil.GetSerialPortNames())
             {
 
                 serialDevices.Add(new SerialDevice()
@@ -91,7 +92,7 @@ namespace GuitarReader.ViewModels
         {
             if(SelectedSerial != null)
             {
-                if (SerialService.TryConnect(SelectedSerial.name, SelectedBaudRate.rate))
+                if (SerialUtil.TryConnect(SelectedSerial.name, SelectedBaudRate.rate))
                 {
                     MessageBox.Show("연결이 완료되었습니다.");
                 }

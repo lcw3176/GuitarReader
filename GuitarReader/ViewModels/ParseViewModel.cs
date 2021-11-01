@@ -1,5 +1,6 @@
 ﻿using GuitarReader.Models;
 using GuitarReader.Services;
+using GuitarReader.Util;
 using System;
 using System.Windows.Threading;
 
@@ -9,7 +10,8 @@ namespace GuitarReader.ViewModels
     {
         private int rowPosition;
         private Note note = new Note();
-        private ParseFrequencyService parseFrequencyService = new ParseFrequencyService();
+        private ParseFrequencyUtil parseFrequencyUtil = new ParseFrequencyUtil();
+
         public int RowPosition
         {
             get { return rowPosition; }
@@ -43,17 +45,15 @@ namespace GuitarReader.ViewModels
         }
 
 
-        PlayService playservice;
+        
 
         public ParseViewModel()
         {
-            playservice = PlayService.GetInstacne();
-            playservice.Open();
 
-            if (SerialService.isOpen())
+            if (SerialUtil.isOpen())
             {
-                SerialService.CheckIn(this.GetType().Name);
-                SerialService.dataReceiveEvent += SerialService_dataReceiveEvent;
+                SerialUtil.GetOwnership(this.GetType().Name);
+                SerialUtil.dataReceiveEvent += SerialService_dataReceiveEvent;
             }
             
         }
@@ -65,7 +65,7 @@ namespace GuitarReader.ViewModels
                 return;
             }
 
-            CodeStr = parseFrequencyService.Parse(hz);
+            CodeStr = parseFrequencyUtil.Parse(hz);
 
             if (!string.IsNullOrEmpty(CodeStr))
             {

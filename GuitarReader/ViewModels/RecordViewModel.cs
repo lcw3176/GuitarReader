@@ -1,10 +1,9 @@
 ﻿using GuitarReader.Command;
 using GuitarReader.Services;
+using GuitarReader.Util;
 using GuitarReader.Views;
-using System;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
 
 namespace GuitarReader.ViewModels
 {
@@ -14,7 +13,7 @@ namespace GuitarReader.ViewModels
         public ICommand SaveCommand { get; set; }
         private RecordService recordService = new RecordService();
         private bool isRun = false;
-        private AnimService animService = null;
+        private AnimUtil animUtil = null;
 
         public RecordViewModel()
         {
@@ -50,9 +49,9 @@ namespace GuitarReader.ViewModels
         {
             if (!isRun)
             {
-                if(animService == null)
+                if(animUtil == null)
                 {
-                    animService = new AnimService(gridSheet as Grid);
+                    animUtil = new AnimUtil(gridSheet as Grid);
                 }
 
                 recordService.StartRecord(gridSheet);
@@ -74,12 +73,12 @@ namespace GuitarReader.ViewModels
         /// <param name="fretPos">프렛 위치</param>
         private void RecordService_recordAddEvent(int stringPos, int fretPos)
         {
-            if (animService == null || !isRun)
+            if (animUtil == null || !isRun)
             {
                 return;
             }
 
-            animService.Start(stringPos, fretPos);
+            animUtil.AddTab(stringPos, fretPos);
 
         }
 
