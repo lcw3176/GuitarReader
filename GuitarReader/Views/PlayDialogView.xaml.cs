@@ -1,4 +1,4 @@
-﻿using GuitarReader.Services;
+﻿using GuitarReader.Util;
 using GuitarReader.ViewModels;
 using System.Windows;
 
@@ -13,12 +13,10 @@ namespace GuitarReader.Views
         {
             InitializeComponent();
             this.DataContext = new PlayViewModel(gridSheet, playId);
-            PlayService.GetInstacne().Open();
         }
 
         private void Window_Closed(object sender, System.EventArgs e)
         {
-            PlayService.GetInstacne().Close();
         }
     }
 }
