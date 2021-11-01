@@ -1,4 +1,5 @@
 ﻿using GuitarReader.Models;
+using GuitarReader.Util;
 using System;
 using System.Collections.Generic;
 using System.Windows.Threading;
@@ -13,17 +14,17 @@ namespace GuitarReader.Services
 
         private List<Note> noteList = new List<Note>();
         private Note note = new Note();
-        private ParseFrequencyService parseFrequencyService = new ParseFrequencyService();
+        private ParseFrequencyUtil parseFrequencyUtil = new ParseFrequencyUtil();
 
         public delegate void RecordAddEvent(int stringPos, int fretPos);
         public event RecordAddEvent recordAddEvent;
 
         public RecordService()
         {
-            if (SerialService.isOpen())
+            if (SerialUtil.isOpen())
             {
-                SerialService.CheckIn(this.GetType().Name);
-                SerialService.dataReceiveEvent += SerialService_dataReceiveEvent;
+                SerialUtil.GetOwnership(this.GetType().Name);
+                SerialUtil.dataReceiveEvent += SerialService_dataReceiveEvent;
             }
         }
 
@@ -34,7 +35,7 @@ namespace GuitarReader.Services
                 return;
             }
 
-            string codeStr = parseFrequencyService.Parse(hz);
+            string codeStr = parseFrequencyUtil.Parse(hz);
             if (!string.IsNullOrEmpty(codeStr))
             {
                 recordAddEvent(note.dict[codeStr].Item1, note.dict[codeStr].Item2);
