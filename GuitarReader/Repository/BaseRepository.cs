@@ -2,14 +2,14 @@
 using System.Data.SQLite;
 using System.IO;
 
-namespace GuitarReader.Services
+namespace GuitarReader.Repository
 {
-    public class DBService
+    class BaseRepository
     {
         private string location = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "guitarReader.db");
         private static SQLiteConnection conn;
 
-        public DBService()
+        protected BaseRepository()
         {
             if (conn == null)
             {
@@ -24,7 +24,7 @@ namespace GuitarReader.Services
             }
         }
 
-        public SQLiteConnection GetConnection()
+        protected SQLiteConnection GetConnection()
         {
             return conn;
         }
@@ -35,7 +35,7 @@ namespace GuitarReader.Services
             conn.Dispose();
         }
 
-        private bool IsExist()
+        protected bool IsExist()
         {
             string query = "SELECT COUNT(*) FROM sqlite_master WHERE NAME = 'SHEET'";
             int result = 0;
@@ -48,7 +48,7 @@ namespace GuitarReader.Services
                     {
                         result = int.Parse(reader[0].ToString());
                     }
-                   
+
                 }
             }
 
@@ -57,7 +57,7 @@ namespace GuitarReader.Services
         }
 
 
-        private void InitTables()
+        protected void InitTables()
         {
             string sheetDDL = "CREATE TABLE SHEET(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -66,7 +66,7 @@ namespace GuitarReader.Services
                 "lastModified CHAR(100) NOT NULL);";
             var cmd = new SQLiteCommand(sheetDDL, conn);
             cmd.ExecuteNonQuery();
-            
+
             string noteDDL = "CREATE TABLE NOTE(" +
                 "id INTEGER," +
                 "stringPos INTEGER NOT NULL," +
@@ -76,11 +76,12 @@ namespace GuitarReader.Services
                 "REFERENCES SHEET(id)" +
                 "ON DELETE CASCADE " +
                 "ON UPDATE CASCADE)";
-            
+
             cmd = new SQLiteCommand(noteDDL, conn);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
         }
+
 
     }
 }
