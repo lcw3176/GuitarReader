@@ -7,8 +7,4 @@
         public static int[] BaudRate { get; set; } = { 9600, 115200 };
 
     }
-
-
-    
-
 }
