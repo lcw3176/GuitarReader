@@ -1,5 +1,4 @@
-﻿using GuitarReader.Util;
-using GuitarReader.ViewModels;
+﻿using GuitarReader.ViewModels;
 using System.Windows;
 
 namespace GuitarReader.Views
@@ -15,8 +14,5 @@ namespace GuitarReader.Views
             this.DataContext = new PlayViewModel(gridSheet, playId);
         }
 
-        private void Window_Closed(object sender, System.EventArgs e)
-        {
-        }
     }
 }
