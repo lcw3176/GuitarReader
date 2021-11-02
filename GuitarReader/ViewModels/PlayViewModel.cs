@@ -1,6 +1,7 @@
 ﻿using GuitarReader.Command;
 using GuitarReader.Services;
 using GuitarReader.Util;
+using System;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -75,5 +76,6 @@ namespace GuitarReader.ViewModels
             playUtil.Stop();
             animUtil.Stop();
         }
+
     }
 }
