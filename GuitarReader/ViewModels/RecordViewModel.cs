@@ -1,5 +1,4 @@
 ﻿using GuitarReader.Command;
-using GuitarReader.Services;
 using GuitarReader.Util;
 using GuitarReader.Views;
 using System.Windows.Controls;
@@ -11,13 +10,13 @@ namespace GuitarReader.ViewModels
     {
         public ICommand RecordCommand { get; set; }
         public ICommand SaveCommand { get; set; }
-        private RecordService recordService = new RecordService();
+        private RecordUtil recordUtil = new RecordUtil();
         private bool isRun = false;
         private AnimUtil animUtil = null;
 
         public RecordViewModel()
         {
-            recordService.recordAddEvent += RecordService_recordAddEvent;
+            recordUtil.recordAddEvent += RecordService_recordAddEvent;
             RecordCommand = new RelayCommand(RecordExecuteMethod);
             SaveCommand = new RelayCommand(SaveExeucteMethod);
         }
@@ -35,7 +34,7 @@ namespace GuitarReader.ViewModels
                 if (inputTiitleDialog.ShowDialog() == true && !string.IsNullOrEmpty(inputTiitleDialog.titleTextBox.Text))
                 {
                     string sheetName = inputTiitleDialog.titleTextBox.Text;
-                    recordService.SaveRecord(sheetName);
+                    recordUtil.SaveRecord(sheetName);
                 }
             }
             
@@ -54,13 +53,13 @@ namespace GuitarReader.ViewModels
                     animUtil = new AnimUtil(gridSheet as Grid);
                 }
 
-                recordService.StartRecord(gridSheet);
+                recordUtil.StartRecord(gridSheet);
                 isRun = true;
             }
 
             else
             {
-                recordService.StopRecord();
+                recordUtil.StopRecord();
                 isRun = false;
             }
             
