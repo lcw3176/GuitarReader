@@ -35,7 +35,16 @@ namespace GuitarReader.ViewModels
         {
             Sheet sheet = sheetService.ReadByName(sheetName.ToString());
             PlayView view = new PlayView(sheet.id);
+            PlayViewModel dataContext = view.DataContext as PlayViewModel;
+
+            view.Closing += ((sender, e) =>
+            {
+                dataContext.StopCommand.Execute(null);
+            });
+
             view.ShowDialog();
+
+            
         }
 
         /// <summary>
