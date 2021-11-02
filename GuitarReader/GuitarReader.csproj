@@ -93,11 +93,11 @@
     <Compile Include="Repository\NoteRepository.cs" />
     <Compile Include="Repository\SheetRepository.cs" />
     <Compile Include="Services\NoteService.cs" />
-    <Compile Include="Services\RecordService.cs" />
     <Compile Include="Services\SheetService.cs" />
     <Compile Include="Util\AnimUtil.cs" />
     <Compile Include="Util\ParseFrequencyUtil.cs" />
     <Compile Include="Util\PlayUtil.cs" />
+    <Compile Include="Util\RecordUtil.cs" />
     <Compile Include="Util\SerialUtil.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
