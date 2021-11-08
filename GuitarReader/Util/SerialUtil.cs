@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GuitarReader.Util
 {
@@ -89,6 +85,80 @@ namespace GuitarReader.Util
                     dataReceiveEvent(owner, hz);
                 }
             }
+        }
+
+        /// <summary>
+        /// 임시 연산 속도 테스트 코드
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void DataReceived_Test(object sender, SerialDataReceivedEventArgs e)
+        {
+            const int LENGTH = 256;
+            const int sample_freq = 8919;
+            int[] rawData = new int[LENGTH];
+            int index = 0;
+
+            while (index < LENGTH)
+            {
+                if (int.TryParse(serialPort.ReadLine(), out int data))
+                {
+                    rawData[index] = data;
+                }
+
+                else
+                {
+                    rawData[index] = 0;
+                }
+
+                index++;
+            }
+            
+
+            long sum = 0;
+            long sum_old = 0;
+            int freq_per = 0;
+            byte pd_state = 0;
+            int thresh = 0;
+            int period = 0;
+
+            for (int i = 0; i < LENGTH; i++)
+            {
+                sum_old = sum;
+                sum = 0;
+
+                for (int k = 0; k < LENGTH - i; k++)
+                {
+                    sum += (rawData[k] - 512) * (rawData[k + i] - 512) / 1024;
+                }
+
+
+                // Peak Detect State Machine
+                if (pd_state == 2 && (sum - sum_old) <= 0)
+                {
+                    period = i;
+                    break;
+                }
+
+                if (pd_state == 1 && (sum > thresh) && (sum - sum_old) > 0)
+                {
+                    pd_state = 2;
+                }
+
+                if (i == 0)
+                {
+                    thresh = (int)(sum * 0.5);
+                    pd_state = 1;
+                }
+            }
+
+            // Frequency identified in Hz
+            if (period != 0)
+            {
+                freq_per = sample_freq / period;
+            }
+
+            Console.Write(freq_per);
         }
     }
 }
