@@ -20,6 +20,7 @@ namespace GuitarReader.Util
         private List<Note> lst;
         private int index = 0;
 
+
         private void PlayBeat()
         {
             
@@ -43,15 +44,25 @@ namespace GuitarReader.Util
 
             Task.Run(() =>
             {
-                DateTime startTime = DateTime.Now;
+                DateTime startDateTime = DateTime.Now;
+                int beforeBeatLen = lst[index].beatLen;
+                int nowBeatLen = lst[index].beatLen;
 
                 while (isRun)
                 {
-                    if(DateTime.Now - startTime >= TimeSpan.FromSeconds(0.5))
+                    if(beforeBeatLen > nowBeatLen)
                     {
-                        PlayBeat();
-                        startTime = DateTime.Now;
+                        nowBeatLen += 60;
                     }
+
+                    if (DateTime.Now - startDateTime >= TimeSpan.FromSeconds(nowBeatLen - beforeBeatLen))
+                    {
+                        beforeBeatLen = lst[index].beatLen;
+                        PlayBeat();
+                        startDateTime = DateTime.Now;
+                        nowBeatLen = lst[index].beatLen;
+                    }
+
                     
                 }
             });
@@ -59,7 +70,7 @@ namespace GuitarReader.Util
 
         public void Pause()
         {
-            isRun = true;
+            isRun = false;
         }
 
         public void Stop()
