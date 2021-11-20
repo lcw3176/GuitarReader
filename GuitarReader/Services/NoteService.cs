@@ -18,6 +18,12 @@ namespace GuitarReader.Services
         {
             return noteRepository.ReadById(id);
         }
-            
+
+        public void UpdateBeatLength(Note beforeNote, Note updateNote)
+        {
+            noteRepository.UpdateBeatLength(beforeNote, updateNote);
+        }
+
+
     }
 }
