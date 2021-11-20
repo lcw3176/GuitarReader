@@ -18,6 +18,17 @@ namespace GuitarReader.Repository
             }
         }
 
+        public void UpdateBeatLength(Note beforeNote, Note updateNote)
+        {
+            SQLiteConnection conn = GetConnection();
+            string cmd = string.Format("UPDATE NOTE SET beatLen = '{0}' WHERE beatLen = '{1}'", updateNote.beatLen, beforeNote.beatLen);
+
+            using (SQLiteCommand command = new SQLiteCommand(cmd, conn))
+            {
+                command.ExecuteNonQuery();
+            }
+        }
+
 
         public List<Note> ReadById(int id)
         {
