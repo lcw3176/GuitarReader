@@ -41,5 +41,19 @@ namespace GuitarReader.ViewModels
         {
             displayUtil.MoveForward();
         }
+
+        public void SaveCurrentInfo()
+        {
+            List<Note> temp = displayUtil.GetCurrentNotes();
+
+            for(int i = 0; i < temp.Count; i++)
+            {
+                if(temp[i].beatLen != noteList[i].beatLen)
+                {
+                    noteService.UpdateBeatLength(noteList[i], temp[i]);
+                }
+            }
+
+        }
     }
 }
