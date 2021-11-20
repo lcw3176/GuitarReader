@@ -11,6 +11,7 @@ namespace GuitarReader.Util
         private List<Note> noteList = new List<Note>();
         private Note note = new Note();
         private ParseFrequencyUtil parseFrequencyUtil = new ParseFrequencyUtil();
+        private DateTime inputTime = DateTime.Now;
 
         public delegate void RecordAddEvent(int stringPos, int fretPos);
         public event RecordAddEvent recordAddEvent;
@@ -26,14 +27,17 @@ namespace GuitarReader.Util
 
         private void SerialService_dataReceiveEvent(string owner, int hz)
         {
-            if (owner != this.GetType().Name)
+
+            if (owner != this.GetType().Name || DateTime.Now - inputTime <= TimeSpan.FromSeconds(1))
             {
                 return;
             }
 
             string codeStr = parseFrequencyUtil.Parse(hz);
+
             if (!string.IsNullOrEmpty(codeStr))
             {
+                inputTime = DateTime.Now;
                 recordAddEvent(note.dict[codeStr].Item1, note.dict[codeStr].Item2);
 
                 noteList.Add(new Note()
@@ -42,6 +46,7 @@ namespace GuitarReader.Util
                     fretPos = note.dict[codeStr].Item2,
                     beatLen = DateTime.Now.Second,
                 });
+                
             }
 
         }
