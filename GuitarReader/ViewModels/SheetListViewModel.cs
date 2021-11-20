@@ -55,6 +55,13 @@ namespace GuitarReader.ViewModels
         {
             Sheet sheet = sheetService.ReadByName(sheetName.ToString());
             EditDialogView view = new EditDialogView(sheet.id);
+            EditViewModel dataContext = view.DataContext as EditViewModel;
+
+            view.Closing += ((sender, e) =>
+            {
+                dataContext.SaveCurrentInfo();
+            });
+
             view.ShowDialog();
         }
     }
