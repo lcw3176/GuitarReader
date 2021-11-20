@@ -30,7 +30,7 @@ namespace GuitarReader.ViewModels
         {
             if (!isRun)
             {
-                InputTiitleDialog inputTiitleDialog = new InputTiitleDialog();
+                InputTiitleDialogView inputTiitleDialog = new InputTiitleDialogView();
                 if (inputTiitleDialog.ShowDialog() == true && !string.IsNullOrEmpty(inputTiitleDialog.titleTextBox.Text))
                 {
                     string sheetName = inputTiitleDialog.titleTextBox.Text;
