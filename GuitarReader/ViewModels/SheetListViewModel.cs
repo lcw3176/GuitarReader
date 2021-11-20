@@ -53,7 +53,9 @@ namespace GuitarReader.ViewModels
         /// <param name="sheetName">악보 이름</param>
         private void EditSheetExecuteMethod(object sheetName)
         {
-            
+            Sheet sheet = sheetService.ReadByName(sheetName.ToString());
+            EditDialogView view = new EditDialogView(sheet.id);
+            view.ShowDialog();
         }
     }
 }
