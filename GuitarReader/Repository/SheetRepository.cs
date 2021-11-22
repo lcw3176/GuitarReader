@@ -1,4 +1,5 @@
 ﻿using GuitarReader.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 
@@ -90,6 +91,17 @@ namespace GuitarReader.Repository
             }
 
             return temp;
+        }
+
+        public void UpdateRecentDate(int id)
+        {
+            SQLiteConnection conn = GetConnection();
+            string cmd = string.Format("UPDATE SHEET SET lastModified = '{0}' WHERE id = '{1}'", DateTime.Now, id);
+
+            using (SQLiteCommand command = new SQLiteCommand(cmd, conn))
+            {
+                command.ExecuteNonQuery();
+            }
         }
     }
 }
