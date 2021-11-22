@@ -46,6 +46,7 @@ namespace GuitarReader.Repository
                         temp.fretPos = int.Parse(reader[nameof(temp.fretPos)].ToString());
                         temp.stringPos = int.Parse(reader[nameof(temp.stringPos)].ToString());
                         temp.beatLen = int.Parse(reader[nameof(temp.beatLen)].ToString());
+                        temp.id = int.Parse(reader[nameof(temp.id)].ToString());
                         lst.Add(temp);
                     }
                 }
