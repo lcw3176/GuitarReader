@@ -2,6 +2,7 @@
 using GuitarReader.Models;
 using GuitarReader.Services;
 using GuitarReader.Util;
+using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,6 +16,7 @@ namespace GuitarReader.ViewModels
 
         private DisplayUtil displayUtil;
         private NoteService noteService = new NoteService();
+        private SheetService sheetService = new SheetService();
         private List<Note> noteList;
 
         public EditViewModel(Grid gridSheet, int sheetId)
@@ -53,6 +55,8 @@ namespace GuitarReader.ViewModels
                     noteService.UpdateBeatLength(noteList[i], temp[i]);
                 }
             }
+
+            sheetService.UpdateRecentDate(temp[0].id);
 
         }
     }
