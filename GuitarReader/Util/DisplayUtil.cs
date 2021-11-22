@@ -63,6 +63,7 @@ namespace GuitarReader.Util
                     };
 
                     tabBlock.MouseDown += TabBlock_MouseDown;
+                    tabBlock.KeyDown += TabBlock_KeyDown;
                     grid.Children.Add(tabBlock);
                     Grid.SetRow(tabBlock, i.stringPos);
                     beforeBeatLen = i.beatLen;
@@ -70,6 +71,16 @@ namespace GuitarReader.Util
 
             }));
 
+        }
+
+        private void TabBlock_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            TextBlock tabBlock = (sender as TextBlock);
+
+            if(e.Key == System.Windows.Input.Key.Delete)
+            {
+                grid.Children.Remove(tabBlock);
+            }
         }
 
         private void TabBlock_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
