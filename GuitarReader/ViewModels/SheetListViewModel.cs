@@ -19,6 +19,12 @@ namespace GuitarReader.ViewModels
         {
             PlaySheetCommand = new RelayCommand(PlaySheetExecuteMethod);
             EditSheetCommand = new RelayCommand(EditSheetExecuteMethod);
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+            SheetsCollection.Clear();
             sheetService.ReadAll().ForEach((i) =>
             {
                 i.PlaySheetCommand = this.PlaySheetCommand;
@@ -60,6 +66,7 @@ namespace GuitarReader.ViewModels
             view.Closing += ((sender, e) =>
             {
                 dataContext.SaveCurrentInfo();
+                Refresh();
             });
 
             view.ShowDialog();
