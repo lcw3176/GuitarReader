@@ -28,5 +28,10 @@ namespace GuitarReader.Services
         {
             return sheetRepository.ReadMostRecent();
         }
+
+        public void UpdateRecentDate(int id)
+        {
+            sheetRepository.UpdateRecentDate(id);
+        }
     }
 }
