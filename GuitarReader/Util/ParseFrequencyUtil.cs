@@ -8,15 +8,15 @@ namespace GuitarReader.Util
         private Note note = new Note();
         public string Parse(int hz)
         {
-
+            int minValue = 10000;
             string result = string.Empty;
 
             foreach (string i in note.frequencyDict.Keys)
             {
-                if (Math.Abs(note.frequencyDict[i] * 0.95 - hz) <= 7)
+                if (Math.Abs(note.frequencyDict[i] - hz) < minValue)
                 {
+                    minValue = Math.Abs(note.frequencyDict[i] - hz);
                     result = i;
-                    break;
                 }
             }
 
