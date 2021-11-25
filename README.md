@@ -17,6 +17,27 @@
 ### 참조 DLL
 - [Toub.Sound.Midi](http://grouplab.cpsc.ucalgary.ca/cookbook/index.php/VisualStudio/HowToPlayMIDIInstruments)
 
+### DataBase DDL
+#### SHEET 테이블 
+```
+CREATE TABLE SHEET(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(100) UNIQUE NOT NULL,
+    created CHAR(100) NOT NULL,
+    lastModified CHAR(100) NOT NULL);
+```
+#### NOTE 테이블
+```
+CREATE TABLE NOTE(
+    id INTEGER,
+    stringPos INTEGER NOT NULL,
+    fretPos INTEGER NOT NULL,
+    beatLen INTEGER NOT NULL,
+    FOREIGN KEY(id)
+    REFERENCES SHEET(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+```
 ## 작동 모습
 ## 메인 홈
 ![홈](https://user-images.githubusercontent.com/59993347/143394900-1d19c2dd-18c4-45c6-95ba-e69361aee437.png)
