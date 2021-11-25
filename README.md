@@ -34,7 +34,7 @@
 - 디스켓 모양의 버튼을 눌러 저장이 가능합니다.
 
 ## 악보 목록
-![악보목록](https://user-images.githubusercontent.com/59993347/143394790-5454f69f-6355-4abb-bf5b-9a002dc57644.png)
+![악보목록수정본](https://user-images.githubusercontent.com/59993347/143396411-82dc17e2-89b5-4275-8ae3-74ccafa1a046.png)
 - 자신이 녹음해놓은 악보를 볼 수 있습니다.
 - 악보를 들어보거나 간단한 편집이 가능하며, 날짜들이 기록되어 있습니다.
 
