@@ -39,7 +39,7 @@ CREATE TABLE NOTE(
     ON UPDATE CASCADE);
 ```
 ## 작동 모습
-## 작동 영상
+### 작동 영상
 - https://www.youtube.com/watch?v=zB0uJF3MIWw
 ### 메인 홈
 ![홈](https://user-images.githubusercontent.com/59993347/143394900-1d19c2dd-18c4-45c6-95ba-e69361aee437.png)
