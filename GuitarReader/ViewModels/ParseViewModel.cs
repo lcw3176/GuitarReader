@@ -1,8 +1,5 @@
 ﻿using GuitarReader.Models;
-using GuitarReader.Services;
 using GuitarReader.Util;
-using System;
-using System.Windows.Threading;
 
 namespace GuitarReader.ViewModels
 {
@@ -10,7 +7,7 @@ namespace GuitarReader.ViewModels
     {
         private int rowPosition;
         private Note note = new Note();
-        private ParseFrequencyUtil parseFrequencyUtil = new ParseFrequencyUtil();
+        private ParseFrequencyService parseFrequencyService = new ParseFrequencyService();
 
         public int RowPosition
         {
@@ -65,7 +62,7 @@ namespace GuitarReader.ViewModels
                 return;
             }
 
-            CodeStr = parseFrequencyUtil.Parse(hz);
+            CodeStr = parseFrequencyService.Parse(hz);
 
             if (!string.IsNullOrEmpty(CodeStr))
             {

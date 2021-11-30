@@ -24,8 +24,8 @@ namespace GuitarReader.ViewModels
             }
         }
 
-        private PlayUtil playUtil = new PlayUtil();
-        private AnimUtil animUtil;
+        private PlayService playService = new PlayService();
+        private AnimService animService;
         private int playId;
 
         public PlayViewModel(Grid _gridSheet, int _playId)
@@ -33,10 +33,10 @@ namespace GuitarReader.ViewModels
             PlayCommand = new RelayCommand(PlayExecuteMethod);
             PauseCommand = new RelayCommand(PauseExecuteMethod);
             StopCommand = new RelayCommand(StopExecuteMethod);
-            animUtil = new AnimUtil(_gridSheet);
+            animService = new AnimService(_gridSheet);
 
-            playUtil.beatPlayEvent += (stringPos, fretPos) => animUtil.AddTab(stringPos, fretPos);
-            playUtil.beatEndEvent += () => { IsRun = false; };
+            playService.beatPlayEvent += (stringPos, fretPos) => animService.AddTab(stringPos, fretPos);
+            playService.beatEndEvent += () => { IsRun = false; };
 
             playId = _playId;
         }
@@ -49,8 +49,8 @@ namespace GuitarReader.ViewModels
         private void PlayExecuteMethod(object obj)
         {
             IsRun = true;
-            playUtil.Play(playId);
-            animUtil.Resume();
+            playService.Play(playId);
+            animService.Resume();
         }
 
 
@@ -61,8 +61,8 @@ namespace GuitarReader.ViewModels
         private void PauseExecuteMethod(object obj)
         {
             IsRun = false;
-            playUtil.Pause();
-            animUtil.Pause();
+            playService.Pause();
+            animService.Pause();
         }
 
 
@@ -73,8 +73,8 @@ namespace GuitarReader.ViewModels
         private void StopExecuteMethod(object obj)
         {
             IsRun = false;
-            playUtil.Stop();
-            animUtil.Stop();
+            playService.Stop();
+            animService.Stop();
         }
 
     }

@@ -10,13 +10,13 @@ namespace GuitarReader.ViewModels
     {
         public ICommand RecordCommand { get; set; }
         public ICommand SaveCommand { get; set; }
-        private RecordUtil recordUtil = new RecordUtil();
+        private RecordService recordService = new RecordService();
         private bool isRun = false;
-        private AnimUtil animUtil = null;
+        private AnimService animService = null;
 
         public RecordViewModel()
         {
-            recordUtil.recordAddEvent += RecordService_recordAddEvent;
+            recordService.recordAddEvent += RecordService_recordAddEvent;
             RecordCommand = new RelayCommand(RecordExecuteMethod);
             SaveCommand = new RelayCommand(SaveExeucteMethod);
         }
@@ -34,7 +34,7 @@ namespace GuitarReader.ViewModels
                 if (inputTiitleDialog.ShowDialog() == true && !string.IsNullOrEmpty(inputTiitleDialog.titleTextBox.Text))
                 {
                     string sheetName = inputTiitleDialog.titleTextBox.Text;
-                    recordUtil.SaveRecord(sheetName);
+                    recordService.SaveRecord(sheetName);
                 }
             }
             
@@ -48,18 +48,18 @@ namespace GuitarReader.ViewModels
         {
             if (!isRun)
             {
-                if(animUtil == null)
+                if(animService == null)
                 {
-                    animUtil = new AnimUtil(gridSheet as Grid);
+                    animService = new AnimService(gridSheet as Grid);
                 }
 
-                recordUtil.StartRecord(gridSheet);
+                recordService.StartRecord(gridSheet);
                 isRun = true;
             }
 
             else
             {
-                recordUtil.StopRecord();
+                recordService.StopRecord();
                 isRun = false;
             }
             
@@ -72,12 +72,12 @@ namespace GuitarReader.ViewModels
         /// <param name="fretPos">프렛 위치</param>
         private void RecordService_recordAddEvent(int stringPos, int fretPos)
         {
-            if (animUtil == null || !isRun)
+            if (animService == null || !isRun)
             {
                 return;
             }
 
-            animUtil.AddTab(stringPos, fretPos);
+            animService.AddTab(stringPos, fretPos);
 
         }
 
