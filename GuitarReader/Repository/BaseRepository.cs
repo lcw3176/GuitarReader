@@ -31,8 +31,11 @@ namespace GuitarReader.Repository
 
         public static void CloseConnection()
         {
-            conn.Close();
-            conn.Dispose();
+            if(conn != null)
+            {
+                conn.Close();
+                conn.Dispose();
+            }
         }
 
         protected bool IsExist()
