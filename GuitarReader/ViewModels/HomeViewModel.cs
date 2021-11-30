@@ -1,8 +1,6 @@
 ﻿using GuitarReader.Command;
 using GuitarReader.Models;
-using GuitarReader.Services;
 using GuitarReader.Util;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
