@@ -40,7 +40,10 @@ CREATE TABLE NOTE(
 ```
 ## 작동 모습
 ### 작동 영상
+[![비디오](https://i.ytimg.com/vi/zB0uJF3MIWw/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAiWvBVHaPLJXB4CBDCHRaD3CxITg)](https://www.youtube.com/watch?v=zB0uJF3MIWw)
+
 - https://www.youtube.com/watch?v=zB0uJF3MIWw
+
 ### 메인 홈
 ![홈](https://user-images.githubusercontent.com/59993347/143394900-1d19c2dd-18c4-45c6-95ba-e69361aee437.png)
 - 프로젝트의 간단한 소개글과 시리얼 연결 기능이 존재합니다.
